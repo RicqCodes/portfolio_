@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, RefObject } from "react";
+import { useState, useRef, useEffect, RefObject, LegacyRef } from "react";
 
 interface ToggleParameter {
   eventType: string;
@@ -10,8 +10,8 @@ const useToggle = ({ eventType = "click", isToggle }: ToggleParameter) => {
   const [toggle, setToggle] = useState(false);
 
   //Create refs for DOM elements that will be controlled by the toggle state
-  const toggleRef: RefObject<HTMLElement> = useRef(null);
-  const toggledElementRef: RefObject<HTMLElement> = useRef(null);
+  const toggleRef: LegacyRef<HTMLDivElement> = useRef(null);
+  const toggledElementRef: LegacyRef<HTMLDivElement> = useRef(null);
 
   useEffect(() => {
     window.addEventListener(eventType, handleClickOutside); // Add a click event listener to the window object that listens for clicks outside of the toggleRef and toggledElementRef elements
