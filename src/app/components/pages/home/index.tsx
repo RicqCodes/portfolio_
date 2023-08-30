@@ -76,6 +76,7 @@ const InnerContent = styled.div`
     height: 100%;
     margin-top: 0;
     gap: 2.4rem;
+    margin-bottom: 2.4rem;
   }
 `;
 
