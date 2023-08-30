@@ -116,9 +116,6 @@ const Header = () => {
                 key={link.id}
                 href={link.pathname === "articles" ? "#" : link.path}
                 onClick={handleToggle}
-                className={pathname === link.path ? "active" : ""}
-                whileHover={{ scale: 1.04 }}
-                transition={{ duration: 0.1 }}
               >
                 <li>{link.pathname}</li>
               </FramerLink>
