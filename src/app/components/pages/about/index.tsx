@@ -26,4 +26,8 @@ const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18.4rem;
+
+  @media (max-width: 30em) {
+    gap: 8rem;
+  }
 `;

@@ -525,7 +525,7 @@ const Wall = styled(motion.div)`
     }
 
     @media (max-width: 30em) {
-      margin-top: -22rem;
+      margin-top: -8rem;
     }
   }
 `;

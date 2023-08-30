@@ -12,6 +12,7 @@ const useToggle = ({ eventType = "click", isToggle }: ToggleParameter) => {
   //Create refs for DOM elements that will be controlled by the toggle state
   const toggleRef: LegacyRef<HTMLDivElement> = useRef(null);
   const toggledElementRef: LegacyRef<HTMLDivElement> = useRef(null);
+  const buttonToggleRef: LegacyRef<HTMLButtonElement> = useRef(null);
 
   useEffect(() => {
     window.addEventListener(eventType, handleClickOutside); // Add a click event listener to the window object that listens for clicks outside of the toggleRef and toggledElementRef elements
@@ -52,7 +53,13 @@ const useToggle = ({ eventType = "click", isToggle }: ToggleParameter) => {
     setToggle(!toggle);
   }; // Return the toggle state, toggleRef, toggledElement and handleToggle
 
-  return { toggle, toggleRef, toggledElementRef, handleToggle };
+  return {
+    toggle,
+    toggleRef,
+    toggledElementRef,
+    buttonToggleRef,
+    handleToggle,
+  };
 };
 
 export default useToggle;

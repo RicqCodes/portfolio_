@@ -26,14 +26,14 @@ const Biography = () => {
         </ImageContainer>
         <BiographyContainer>
           <motion.h4
-            initial={{ y: "30%", opacity: "0" }}
-            animate={{ y: "0", opacity: "1" }}
+            initial={{ y: "30%", opacity: 0 }}
+            animate={{ y: "0", opacity: 1 }}
           >
             quick biography
           </motion.h4>
           <motion.p
-            initial={{ y: "30%", opacity: "0" }}
-            animate={{ y: "0", opacity: "1" }}
+            initial={{ y: "30%", opacity: 0 }}
+            animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
             Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,
@@ -43,8 +43,8 @@ const Biography = () => {
             and innovative ways to bring my clients&apos; visions to life.
           </motion.p>
           <motion.p
-            initial={{ y: "30%", opacity: "0" }}
-            animate={{ y: "0", opacity: "1" }}
+            initial={{ y: "30%", opacity: 0 }}
+            animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1 }}
           >
             Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,
@@ -54,8 +54,8 @@ const Biography = () => {
             and innovative ways to bring my clients&apos; visions to life.
           </motion.p>
           <motion.p
-            initial={{ y: "30%", opacity: "0" }}
-            animate={{ y: "0", opacity: "1" }}
+            initial={{ y: "30%", opacity: 0 }}
+            animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
             Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,

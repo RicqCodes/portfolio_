@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -32,15 +32,22 @@ const linkedArr = [
 const FramerLink = motion(Link);
 
 const Header = () => {
-  const { handleToggle, toggle, toggleRef, toggledElementRef } = useToggle({
+  const {
+    handleToggle,
+    toggle,
+    toggleRef,
+    buttonToggleRef,
+    toggledElementRef,
+  } = useToggle({
     eventType: "click",
   });
-  // const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // const handleToggle = () => {
-  //   setOpen(!open);
-  // };
+  useEffect(() => {
+    console.log(toggle);
+    if (toggle) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "visible";
+  }, [toggle]);
 
   return (
     <HeaderContainer>
@@ -94,49 +101,50 @@ const Header = () => {
           </a>
         </li>
       </SocialContainer>
-      <div ref={toggleRef}>
-        <Button
-          type="button"
-          aria-label="Open contact menu"
-          aria-controls="contact-menu"
-          onClick={handleToggle}
-          className={toggle ? "open" : "close"}
-        ></Button>
-      </div>
+      <Button
+        ref={buttonToggleRef}
+        type="button"
+        aria-label="Open contact menu"
+        aria-controls="contact-menu"
+        onClick={handleToggle}
+        className={toggle ? "open" : "close"}
+      ></Button>
       <Nav
         ref={toggledElementRef}
         aria-label="Contact menu"
         className={toggle ? "open" : "close"}
       >
-        <Ul>
-          {linkedArr.map((link) => (
-            <FramerLink
-              key={link.id}
-              href={link.pathname === "articles" ? "#" : link.path}
-              onClick={handleToggle}
-              className={pathname === link.path ? "active" : ""}
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 0.1 }}
-            >
-              <li>{link.pathname}</li>
-            </FramerLink>
-          ))}
-        </Ul>
-        <BasicContact>
-          <Span>Let&apos;s Connect</Span>
-          <ul>
-            <li>
-              <a
-                data-link
-                href="mailto:princenwakanma1996@gmail.com"
-                target="_blank"
-                rel="noreferrer"
+        <NavContainer>
+          <Ul>
+            {linkedArr.map((link) => (
+              <FramerLink
+                key={link.id}
+                href={link.pathname === "articles" ? "#" : link.path}
+                onClick={handleToggle}
+                className={pathname === link.path ? "active" : ""}
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.1 }}
               >
-                Mail me
-              </a>
-            </li>
-          </ul>
-        </BasicContact>
+                <li>{link.pathname}</li>
+              </FramerLink>
+            ))}
+          </Ul>
+          <BasicContact>
+            <Span>Let&apos;s Connect</Span>
+            <ul>
+              <li>
+                <a
+                  data-link
+                  href="mailto:princenwakanma1996@gmail.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Mail me
+                </a>
+              </li>
+            </ul>
+          </BasicContact>
+        </NavContainer>
         <SocialContact>
           <li data-link>
             <a
@@ -242,6 +250,14 @@ const Logo = styled.div`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.tertiaryColor};
   }
+
+  @media (max-width: 34em) {
+    height: 4.8rem;
+    width: 4.8rem;
+    a {
+      font-size: 2.8rem;
+    }
+  }
 `;
 
 const SocialContainer = styled.ul`
@@ -329,6 +345,13 @@ const Button = styled.button`
     width: 75%;
     transform: rotate(-45deg);
   }
+
+  @media (max-width: 34em) {
+    ${HeaderContainer} &.close:before {
+      content: "";
+      width: 90%;
+    }
+  }
 `;
 
 const Nav = styled.nav`
@@ -340,6 +363,7 @@ const Nav = styled.nav`
   width: 100%;
   height: 100vh;
   padding: 3.5rem;
+  justify-content: space-between;
   user-select: none;
   flex-direction: column;
   background-color: #fff;
@@ -389,7 +413,7 @@ const Ul = styled.ul`
 
     a {
       color: ${({ theme }) => theme.colors.secondaryColor};
-      font-size: 2.6rem;
+      font-size: 2rem;
       text-transform: capitalize;
     }
   }
@@ -450,7 +474,7 @@ const BasicContact = styled.div`
 
     a {
       color: ${({ theme }) => theme.colors.secondaryColor};
-      font-size: 2.6rem;
+      font-size: 2rem;
     }
 
     @media (hover: hover) and (any-pointer: fine) {
@@ -556,4 +580,11 @@ const SocialContact = styled.ul`
       background-color: currentColor;
     }
   }
+`;
+
+const NavContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
