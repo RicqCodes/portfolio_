@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -32,15 +32,10 @@ const linkedArr = [
 const FramerLink = motion(Link);
 
 const Header = () => {
-  const {
-    handleToggle,
-    toggle,
-    toggleRef,
-    buttonToggleRef,
-    toggledElementRef,
-  } = useToggle({
-    eventType: "click",
-  });
+  const { handleToggle, toggle, buttonToggleRef, toggledElementRef } =
+    useToggle({
+      eventType: "click",
+    });
   const pathname = usePathname();
 
   useEffect(() => {
