@@ -187,10 +187,9 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.header`
-  padding: 1.8rem 8.4rem;
+  padding: 4.8rem 8.4rem;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-family: monospace;
   background-color: ${({ theme }) => theme.colors.primaryColor};
 
