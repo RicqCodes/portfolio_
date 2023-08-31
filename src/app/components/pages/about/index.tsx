@@ -6,6 +6,7 @@ import PageContainer from "../_molecules/PageContainer";
 import Biography from "./_molecules/Biography";
 import Skills from "./_molecules/Skills";
 import Experiences from "./_molecules/Experiences";
+import Education from "./_molecules/Education";
 // import LoadingComponent from "../../Common/LoadingComponent";
 
 const About = () => {
@@ -17,6 +18,7 @@ const About = () => {
           <Biography />
           <Skills />
           <Experiences />
+          <Education />
         </InnerContainer>
       </PageContainer>
     </>

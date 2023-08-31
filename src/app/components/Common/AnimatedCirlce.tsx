@@ -1,13 +1,12 @@
 import React, { RefObject } from "react";
 import { styled } from "styled-components";
-import { motion, useScroll } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 
-const AnimatedCirlce = ({ entryRef }: { entryRef: RefObject<HTMLElement> }) => {
-  const { scrollYProgress } = useScroll({
-    target: entryRef,
-    offset: ["start end", "end end"],
-  });
-  console.log(scrollYProgress);
+const AnimatedCirlce = ({
+  scrollYProgress,
+}: {
+  scrollYProgress: MotionValue<number>;
+}) => {
   return (
     <Figure>
       <svg width="75" height="75" viewBox="0 0 100 100">

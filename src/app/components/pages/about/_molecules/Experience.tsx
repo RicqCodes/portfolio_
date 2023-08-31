@@ -3,39 +3,56 @@ import { styled } from "styled-components";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { BsCalendar2Check } from "react-icons/bs";
 
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import AnimatedCirlce from "@/app/components/Common/AnimatedCirlce";
 
-const Experience = () => {
+const Experience = ({
+  pos,
+  comp,
+  desc,
+  period,
+  location,
+}: {
+  pos: string;
+  comp: string;
+  desc: string;
+  period: string;
+  location: string;
+}) => {
   const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"],
+  });
+
   return (
     <MainContainer>
-      <AnimatedCirlce entryRef={ref} />
-      <ExperienceContainer ref={ref}>
+      <AnimatedCirlce scrollYProgress={scrollYProgress} />
+      <ExperienceContainer
+        ref={ref}
+        initial={{ y: 80 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+        viewport={{ once: true, margin: "-20%" }}
+      >
         <h3>
-          Lead Full-Stack Software Engineer
+          {pos}
           <a href="" target="_blank" rel="noreferrer">
-            @RGS
+            {!comp ? "" : `@${comp}`}
           </a>
         </h3>
         <span>
           <span>
             <BsCalendar2Check />
-            2012 - 2017
+            {period}
           </span>
           <span>|</span>
           <span>
-            <MdOutlineLocationOn /> London
+            <MdOutlineLocationOn /> {location}
           </span>
         </span>
-        <p>
-          Worked on a team responsible for the delivery of a web app that
-          provides a set of tools and features which enable its community of
-          users to coordinate ideas, influence, and funds, that is peer-to-peer,
-          open, and includes its own incentive system of user actions to ensure
-          accountability, quality engagement and verifiable information over
-          time.
-        </p>
+        <p>{desc}</p>
       </ExperienceContainer>
     </MainContainer>
   );
@@ -43,9 +60,11 @@ const Experience = () => {
 
 export default Experience;
 
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  display: inline;
+`;
 
-const ExperienceContainer = styled.li`
+const ExperienceContainer = styled(motion.li)`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -65,8 +84,9 @@ const ExperienceContainer = styled.li`
     width: 100%;
     font-size: 1.6rem;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     align-items: center;
+    flex-wrap: wrap;
 
     > span {
       display: flex;

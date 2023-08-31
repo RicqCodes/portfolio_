@@ -4,9 +4,9 @@ import React, { useRef } from "react";
 import { styled } from "styled-components";
 import Experience from "./Experience";
 import { motion } from "framer-motion";
-import { experienceData } from "./data";
+import { educationData } from "./data";
 
-const Experiences = () => {
+const Education = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -15,11 +15,11 @@ const Experiences = () => {
 
   return (
     <MainContainer>
-      <Letter text="Experiences" />
+      <Letter text="Education" />
       <InnerContainer ref={containerRef}>
         <Tracker style={{ scaleY: scrollYProgress }} />
         <ExperienceContainer>
-          {experienceData.map((exp) => (
+          {educationData.map((exp) => (
             <Experience
               key={exp.id}
               pos={exp.position}
@@ -35,7 +35,7 @@ const Experiences = () => {
   );
 };
 
-export default Experiences;
+export default Education;
 
 const MainContainer = styled.div`
   display: flex;
@@ -44,6 +44,8 @@ const MainContainer = styled.div`
   max-width: 86rem;
   width: 100%;
   margin: 0 auto;
+  align-items: center;
+  justify-content: center;
 `;
 
 const InnerContainer = styled.div`
@@ -51,6 +53,7 @@ const InnerContainer = styled.div`
   position: relative;
   gap: 4rem;
   height: 100%;
+  padding-bottom: 20rem;
 `;
 
 const Tracker = styled(motion.div)`
