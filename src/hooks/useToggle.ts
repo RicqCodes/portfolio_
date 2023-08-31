@@ -49,7 +49,11 @@ const useToggle = ({ eventType = "click", isToggle }: ToggleParameter) => {
     }
   };
 
-  const handleToggle = () => {
+  const handleToggle = (override?: string, value?: boolean) => {
+    if (override) {
+      setToggle(value!);
+      return;
+    }
     setToggle(!toggle);
   }; // Return the toggle state, toggleRef, toggledElement and handleToggle
 

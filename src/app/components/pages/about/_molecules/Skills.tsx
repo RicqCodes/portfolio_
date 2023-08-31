@@ -99,7 +99,10 @@ const Skills = () => {
           <h3>Languages & Frameworks</h3>
           <WallContainer>
             <VBoxes>
-              <Box>
+              <Box
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.5, stiffness: 50 }}
+              >
                 <span>HTML</span>
                 <BoxFace>
                   <h4>
@@ -499,12 +502,12 @@ const Wall = styled(motion.div)`
     font-weight: 600;
   }
 
-  &:nth-child(1) {
+  &:first-child {
     transform: rotate(180deg);
 
     h3 {
       bottom: 11rem;
-      right: -5rem;
+      right: -4rem;
       transform: rotate(135deg);
     }
 
@@ -517,7 +520,7 @@ const Wall = styled(motion.div)`
     }
   }
 
-  &:nth-child(2) {
+  &:last-child {
     h3 {
       bottom: 10rem;
       right: 2rem;
@@ -525,7 +528,7 @@ const Wall = styled(motion.div)`
     }
 
     @media (max-width: 30em) {
-      margin-top: -8rem;
+      margin-top: -12rem;
     }
   }
 `;
@@ -553,7 +556,7 @@ const VBoxes = styled.div`
   }
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   width: 10rem;
   height: 10rem;
   -webkit-transform: rotate(45deg);
@@ -563,10 +566,9 @@ const Box = styled.div`
   margin: 25px;
   cursor: pointer;
 
-  &:hover {
+  /* &:hover {
     div {
       transform: translateZ(100px) rotateX(180deg);
-      background-color: transparent;
     }
     > div > h4 {
       opacity: 0;
@@ -581,7 +583,7 @@ const Box = styled.div`
         color: #323232;
       }
     }
-  }
+  } */
 
   > span {
     visibility: hidden;
@@ -661,6 +663,7 @@ const BoxFace = styled(Faces)`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
 
   h4 {
     line-height: 100px;
@@ -676,9 +679,8 @@ const BoxFace = styled(Faces)`
 `;
 
 const BoxBack = styled(Faces)`
-  z-index: 0;
+  z-index: -1;
   background-image: linear-gradient(#fff, #efefef);
-
   h4 {
     line-height: 100px;
     text-align: center;

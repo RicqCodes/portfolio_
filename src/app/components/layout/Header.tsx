@@ -24,7 +24,7 @@ const linkedArr = [
   },
   {
     id: 4,
-    path: "/articles",
+    path: "",
     pathname: "articles",
   },
 ];
@@ -39,24 +39,24 @@ const Header = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(toggle);
     if (toggle) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "visible";
   }, [toggle]);
 
+  console.log(toggle);
   return (
     <HeaderContainer>
       <NavLinks>
         {linkedArr.map((link) => (
-          <Link
+          <FramerLink
             key={link.id}
-            href={link.pathname === "articles" ? "#" : link.path}
+            href={link.path}
             className={pathname === link.path ? "active" : ""}
-            // whileHover={{ scale: 1.04 }}
-            // transition={{ duration: 0.1 }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.1 }}
           >
             <li>{link.pathname}</li>
-          </Link>
+          </FramerLink>
         ))}
       </NavLinks>
       <Logo aria-label="Logo, go to homepage">
@@ -101,7 +101,7 @@ const Header = () => {
         type="button"
         aria-label="Open contact menu"
         aria-controls="contact-menu"
-        onClick={handleToggle}
+        onClick={() => handleToggle()}
         className={toggle ? "open" : "close"}
       ></Button>
       <Nav
@@ -112,13 +112,13 @@ const Header = () => {
         <NavContainer>
           <Ul>
             {linkedArr.map((link) => (
-              <FramerLink
+              <Link
                 key={link.id}
                 href={link.pathname === "articles" ? "#" : link.path}
-                onClick={handleToggle}
+                onClick={() => handleToggle("override", false)}
               >
                 <li>{link.pathname}</li>
-              </FramerLink>
+              </Link>
             ))}
           </Ul>
           <BasicContact>
@@ -286,6 +286,7 @@ const Button = styled.button`
 
   &:before,
   &:after {
+    content: "";
     @media (max-width: 41em) {
       background-color: ${({ theme }) => theme.colors.secondaryColor}!important;
     }
@@ -302,36 +303,39 @@ const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.secondaryColor};
   }
 
-  ${HeaderContainer} &.close:before {
+  &.close:before {
+    content: "";
     top: 0;
     right: 0;
   }
 
-  ${HeaderContainer} &.close:after {
+  &.close:after {
+    content: "";
     right: 0;
     width: 72%;
     top: 1.6rem;
   }
 
-  ${HeaderContainer} &.open:before,
-  ${HeaderContainer} &.open:after {
+  &.open:before,
+  &.open:after {
     content: "";
     width: 100%;
     height: 2px;
     position: absolute;
     transition: 0.3s ease;
-    /* transform: rotate(0deg); */
     background-color: ${({ theme }) => theme.colors.secondaryColor};
   }
 
-  ${HeaderContainer} &.open:before {
+  &.open:before {
+    content: "";
     top: 1rem;
     right: 0;
     width: 75%;
     transform: rotate(45deg);
   }
 
-  ${HeaderContainer} &.open:after {
+  &.open:after {
+    content: "";
     right: 0;
     top: 1rem;
     width: 75%;
@@ -339,7 +343,7 @@ const Button = styled.button`
   }
 
   @media (max-width: 34em) {
-    ${HeaderContainer} &.close:before {
+    &.close:before {
       content: "";
       width: 90%;
     }
