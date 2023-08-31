@@ -415,19 +415,11 @@ const Nav = styled(motion.nav)`
   width: 100%;
   height: 100vh;
   padding: 3.5rem;
-  justify-content: space-between;
+  gap: 2rem;
   user-select: none;
   flex-direction: column;
   background-color: #fff;
   color: ${({ theme }) => theme.colors.secondaryColor};
-
-  /* &::before {
-    ${HeaderContainer} &:not(.open):before {
-      -webkit-transform: scaleX(0.3826) scaleY(0.27);
-      -ms-transform: scaleX(0.3826) scaleY(0.27);
-      transform: scaleX(0.3826) scaleY(0.27);
-    }
-  } */
 `;
 
 const Ul = styled(motion.ul)`
@@ -563,7 +555,7 @@ const SocialContact = styled.ul`
   align-items: center;
   justify-content: center;
   gap: 1.8rem;
-  margin-bottom: 4.6rem;
+  /* margin-bottom: 4.6rem; */
 
   transition-delay: 600ms;
   transition: opacity, transform 0.3s;
