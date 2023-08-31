@@ -186,7 +186,7 @@ const Header = () => {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Mail me
+                      Mail Me
                     </a>
                   </motion.li>
                 </motion.ul>
@@ -244,7 +244,7 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.header`
-  padding: 4.8rem 8.4rem;
+  padding: 1.8rem 8.4rem;
   display: flex;
   align-items: center;
   font-family: monospace;
@@ -434,6 +434,7 @@ const Ul = styled(motion.ul)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.8rem;
   justify-content: center;
   margin: 8rem 0 2rem;
   width: 100%;
@@ -562,6 +563,7 @@ const SocialContact = styled.ul`
   align-items: center;
   justify-content: center;
   gap: 1.8rem;
+  margin-bottom: 4.6rem;
 
   transition-delay: 600ms;
   transition: opacity, transform 0.3s;
