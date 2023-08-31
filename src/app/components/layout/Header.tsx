@@ -48,15 +48,15 @@ const Header = () => {
     <HeaderContainer>
       <NavLinks>
         {linkedArr.map((link) => (
-          <FramerLink
+          <Link
             key={link.id}
             href={link.pathname === "articles" ? "#" : link.path}
             className={pathname === link.path ? "active" : ""}
-            whileHover={{ scale: 1.04 }}
-            transition={{ duration: 0.1 }}
+            // whileHover={{ scale: 1.04 }}
+            // transition={{ duration: 0.1 }}
           >
             <li>{link.pathname}</li>
-          </FramerLink>
+          </Link>
         ))}
       </NavLinks>
       <Logo aria-label="Logo, go to homepage">
@@ -278,7 +278,7 @@ const Button = styled.button`
   margin-top: 1rem;
   color: ${({ theme }) => theme.colors.secondaryColor};
   border: none;
-  z-index: 999;
+  z-index: 9;
 
   @media (max-width: 58em) {
     display: inline;
