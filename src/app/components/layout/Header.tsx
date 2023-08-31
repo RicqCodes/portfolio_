@@ -288,7 +288,7 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
   height: 6.4rem;
   width: 6.4rem;
   border-radius: 50%;
@@ -418,7 +418,7 @@ const Nav = styled(motion.nav)`
   gap: 2rem;
   user-select: none;
   flex-direction: column;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.tertiaryColor};
   color: ${({ theme }) => theme.colors.secondaryColor};
 `;
 

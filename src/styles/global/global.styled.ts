@@ -32,6 +32,7 @@ body {
         position: relative;
         background: ${({ theme }) => theme.colors.primaryColor};
         line-height: 1;
+        color: ${({ theme }) => theme.colors.secondaryColor};
         -webkit-font-smoothing: antialiased;
         margin: 0;
         padding: 0;
@@ -98,8 +99,8 @@ ul, ol, li {
     transition-duration: 300ms;
     transition-property: opacity, color, background-color, transform, border;
     background-color: transparent;
-        color: initial;
-        text-decoration: none;
+    color: ${({ theme }) => theme.colors.secondaryColor};
+    text-decoration: none;
 
         &:hover, 
         &:visited, 

@@ -107,8 +107,8 @@ const Top = styled.div`
       padding: 2px 14px;
       font-size: 1rem;
       border-radius: 8px;
-      background-color: black;
-      color: #fff;
+      background-color: ${({ theme }) => theme.colors.secondaryColor};
+      color: ${({ theme }) => theme.colors.tertiaryColor};
       text-transform: capitalize;
     }
   }

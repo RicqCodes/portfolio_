@@ -1,17 +1,27 @@
 "use client";
 import React from "react";
-import { styled } from "styled-components";
+import { styled, ThemeProvider } from "styled-components";
 
 import Header from "./Header";
 import Footer from "./Footer";
+import { useDarkMode } from "@/hooks/useTheme";
+import { lightTheme, darkTheme } from "@/styles/theme";
+import GlobalStyles from "@/styles/global/global.styled";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const { theme, themeToggler } = useDarkMode();
+
   return (
-    <Container>
-      <Header />
-      <Main>{children}</Main>
-      {/* <Footer /> */}
-    </Container>
+    <>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <Container>
+          <Header />
+          <Main>{children}</Main>
+          {/* <Footer /> */}
+        </Container>
+      </ThemeProvider>
+    </>
   );
 };
 
