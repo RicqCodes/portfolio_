@@ -446,6 +446,7 @@ const Ul = styled(motion.ul)`
     a {
       color: ${({ theme }) => theme.colors.secondaryColor};
       font-size: 2rem;
+      font-family: monospace;
       text-transform: capitalize;
     }
   }

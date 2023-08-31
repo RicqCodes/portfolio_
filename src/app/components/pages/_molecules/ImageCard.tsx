@@ -26,11 +26,14 @@ const ImageCard = ({
         <FramerImage
           src={img}
           alt={alt}
+          blurDataURL={img}
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.6 }}
-          priority
-          width="1"
-          height="1"
+          placeholder="blur"
+          quality={100}
+          // fill
+          width="100"
+          height="100"
           sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"

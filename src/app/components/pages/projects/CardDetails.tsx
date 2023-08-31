@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import { BiLinkAlt } from "react-icons/bi";
 import { RxGithubLogo } from "react-icons/rx";
@@ -18,6 +18,7 @@ const CardDetails = ({
   repo: string;
   url: string;
 }) => {
+  const [seeMore, setSeeMore] = useState(false);
   return (
     <CardContainer>
       <InnerContainer>
@@ -33,7 +34,15 @@ const CardDetails = ({
           <h2>{name}</h2>
         </Heading>
         <Content>
-          <p>{description}</p>
+          <p>
+            {seeMore ? description : description.slice(0, 128) + "..."}
+            {!seeMore && (
+              <span onClick={() => setSeeMore(true)}> See More &rarr;</span>
+            )}
+            {seeMore && (
+              <span onClick={() => setSeeMore(false)}> See Less &rarr;</span>
+            )}
+          </p>
           <div>
             <a href={url} target="_blank" rel="noreferrer">
               <BiLinkAlt />
@@ -113,6 +122,12 @@ const Content = styled.div`
 
   p {
     font-size: 1.4rem;
+
+    span {
+      font-weight: 600;
+      margin-left: 1rem;
+      cursor: pointer;
+    }
   }
 
   > div {

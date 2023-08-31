@@ -10,14 +10,17 @@ const LoadingComponent = () => {
 export default LoadingComponent;
 
 const LoadingContainer = styled(motion.div)`
-  position: absolute;
+  position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 100%;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
-  /* background-color: ${({ theme }) => theme.colors.secondaryColor}; */
-  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 500;
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
+  color: ${({ theme }) => theme.colors.primaryColor};
+  z-index: 999999;
 `;

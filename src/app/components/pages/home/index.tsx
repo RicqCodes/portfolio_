@@ -18,46 +18,48 @@ const FramerImage = motion(Image);
 
 const Home: React.FC = () => {
   return (
-    <PageContainer linearBg fullHeight>
-      <InnerContent>
-        <Article>
-          <Content>
-            <Text>
-              <h1 aria-label="Front Developer">
-                <span>
-                  Frontend & Blockchain
-                  <br /> Developer
-                  <span>.</span>
-                </span>
-              </h1>
-              <p>
-                I take pleasure in creating robust and scalable frontend
-                products that provide exceptional user experiences.
-              </p>
-            </Text>
-            <InnerContentBottom>
-              <Ul aria-label="Highlights.">
-                <li>
-                  possess strong expertise in progressive enhancement, and UI
-                  engineering.
-                </li>
-                <li>
-                  3 years of experience in building products for clients across
-                  various countries.
-                </li>
-              </Ul>
-            </InnerContentBottom>
-          </Content>
-        </Article>
-        <motion.div
-          initial={{ x: 80 }}
-          animate={{ x: 0 }}
-          transition={{ type: "spring", stiffness: 100 }}
-        >
-          <ImageCard img="/code-snippet.jpg" alt="code snippet" />
-        </motion.div>
-      </InnerContent>
-    </PageContainer>
+    <>
+      <PageContainer linearBg fullHeight>
+        <InnerContent>
+          <Article>
+            <Content>
+              <Text>
+                <h1 aria-label="Front Developer">
+                  <span>
+                    Frontend & Blockchain
+                    <br /> Developer
+                    <span>.</span>
+                  </span>
+                </h1>
+                <p>
+                  I take pleasure in creating robust and scalable frontend
+                  products that provide exceptional user experiences.
+                </p>
+              </Text>
+              <InnerContentBottom>
+                <Ul aria-label="Highlights.">
+                  <li>
+                    possess strong expertise in progressive enhancement, and UI
+                    engineering.
+                  </li>
+                  <li>
+                    3 years of experience in building products for clients
+                    across various countries.
+                  </li>
+                </Ul>
+              </InnerContentBottom>
+            </Content>
+          </Article>
+          <motion.div
+            initial={{ x: 80 }}
+            animate={{ x: 0 }}
+            transition={{ type: "spring", stiffness: 100 }}
+          >
+            <ImageCard img="/code-snippet.jpg" alt="code snippet" />
+          </motion.div>
+        </InnerContent>
+      </PageContainer>
+    </>
   );
 };
 
