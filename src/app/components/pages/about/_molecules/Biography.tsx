@@ -40,8 +40,8 @@ const Biography = () => {
             developer, proficient DApp craftsman, and seasoned UI/UX designer.
             My commitment resides in sculpting exquisite, utilitarian, and
             user-centric digital landscapes. Over a span of 3 prolific years,
-            I've cultivated an unwavering drive to manifest my clients'
-            aspirations with ingenuity and innovation.
+            I&apos;ve cultivated an unwavering drive to manifest my
+            clients&apos; aspirations with ingenuity and innovation.
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
@@ -51,7 +51,7 @@ const Biography = () => {
             Beyond the realm of code and design, my journey is a testament to
             evolution and adaptability. From my initial foray into web
             development to immersing myself in decentralized applications, each
-            milestone has contributed to my growth. I've refined my skills
+            milestone has contributed to my growth. I&apos;ve refined my skills
             through the artistry of crafting seamless user interfaces and delved
             into the intricate world of blockchain, merging technology with
             imagination. This holistic approach enables me to infuse versatility
@@ -65,12 +65,13 @@ const Biography = () => {
           >
             In an ever-evolving digital cosmos, my voyage as a creator has been
             nurtured by relentless curiosity. From conceiving intricate backend
-            systems to shaping the very pixels that captivate users, I've
+            systems to shaping the very pixels that captivate users, I&apos;ve
             embraced the intricate dance between logic and aesthetics. My
             toolkit includes a pantheon of technologies, from React and Node.js
             to Solidity, each harnessed to materialize innovative solutions. My
-            commitment goes beyond lines of code; it's an unwavering promise to
-            weave narratives that resonate and experiences that transcend.
+            commitment goes beyond lines of code; it&apos;s an unwavering
+            promise to weave narratives that resonate and experiences that
+            transcend.
           </motion.p>
         </BiographyContainer>
         <Stats>
