@@ -36,33 +36,41 @@ const Biography = () => {
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,
-            DApp developer and UI/UX designer with a passion for creating
-            beautiful, functional, and user-centered digital experiences. With
-            over 5 years of experience in the field. I am always looking for new
-            and innovative ways to bring my clients&apos; visions to life.
+            Greetings, I am Prince Nwakanma—an adept FE-oriented full-stack web
+            developer, proficient DApp craftsman, and seasoned UI/UX designer.
+            My commitment resides in sculpting exquisite, utilitarian, and
+            user-centric digital landscapes. Over a span of 3 prolific years,
+            I've cultivated an unwavering drive to manifest my clients'
+            aspirations with ingenuity and innovation.
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,
-            DApp developer and UI/UX designer with a passion for creating
-            beautiful, functional, and user-centered digital experiences. With
-            over 5 years of experience in the field. I am always looking for new
-            and innovative ways to bring my clients&apos; visions to life.
+            Beyond the realm of code and design, my journey is a testament to
+            evolution and adaptability. From my initial foray into web
+            development to immersing myself in decentralized applications, each
+            milestone has contributed to my growth. I've refined my skills
+            through the artistry of crafting seamless user interfaces and delved
+            into the intricate world of blockchain, merging technology with
+            imagination. This holistic approach enables me to infuse versatility
+            into every project, transforming abstract ideas into tangible
+            digital realms.
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
-            Hi, I&apos;m Prince Nwakanma, a FE heavy full-stack web developer,
-            DApp developer and UI/UX designer with a passion for creating
-            beautiful, functional, and user-centered digital experiences. With
-            over 5 years of experience in the field. I am always looking for new
-            and innovative ways to bring my clients&apos; visions to life.
+            In an ever-evolving digital cosmos, my voyage as a creator has been
+            nurtured by relentless curiosity. From conceiving intricate backend
+            systems to shaping the very pixels that captivate users, I've
+            embraced the intricate dance between logic and aesthetics. My
+            toolkit includes a pantheon of technologies, from React and Node.js
+            to Solidity, each harnessed to materialize innovative solutions. My
+            commitment goes beyond lines of code; it's an unwavering promise to
+            weave narratives that resonate and experiences that transcend.
           </motion.p>
         </BiographyContainer>
         <Stats>
