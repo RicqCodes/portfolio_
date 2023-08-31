@@ -50,7 +50,7 @@ const Home: React.FC = () => {
           </Content>
         </Article>
         <motion.div
-          initial={{ x: 100 }}
+          initial={{ x: 80 }}
           animate={{ x: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
         >

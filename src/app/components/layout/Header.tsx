@@ -43,7 +43,6 @@ const Header = () => {
     else document.body.style.overflow = "visible";
   }, [toggle]);
 
-  console.log(toggle);
   return (
     <HeaderContainer>
       <NavLinks>
@@ -104,82 +103,84 @@ const Header = () => {
         onClick={() => handleToggle()}
         className={toggle ? "open" : "close"}
       ></Button>
-      <Nav
-        ref={toggledElementRef}
-        aria-label="Contact menu"
-        className={toggle ? "open" : "close"}
-      >
-        <NavContainer>
-          <Ul>
-            {linkedArr.map((link) => (
-              <Link
-                key={link.id}
-                href={link.pathname === "articles" ? "#" : link.path}
-                onClick={() => handleToggle("override", false)}
-              >
-                <li>{link.pathname}</li>
-              </Link>
-            ))}
-          </Ul>
-          <BasicContact>
-            <Span>Let&apos;s Connect</Span>
-            <ul>
-              <li>
-                <a
-                  data-link
-                  href="mailto:princenwakanma1996@gmail.com"
-                  target="_blank"
-                  rel="noreferrer"
+      {toggle && (
+        <Nav
+          ref={toggledElementRef}
+          aria-label="Contact menu"
+          className={"open"}
+        >
+          <NavContainer>
+            <Ul>
+              {linkedArr.map((link) => (
+                <Link
+                  key={link.id}
+                  href={link.pathname === "articles" ? "#" : link.path}
+                  onClick={() => handleToggle("override", false)}
                 >
-                  Mail me
-                </a>
-              </li>
-            </ul>
-          </BasicContact>
-        </NavContainer>
-        <SocialContact>
-          <li data-link>
-            <a
-              data-link
-              href="https://twitter.com/Dechain_Dev"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; TE &quot;
-            </a>
-          </li>
-          <li data-link>
-            <a
-              data-link
-              href="https://twitter.com/Dechain_Dev"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; TW &quot;
-            </a>
-          </li>
-          <li data-link>
-            <a
-              data-link
-              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; LN &quot;
-            </a>
-          </li>
-          <li data-link>
-            <a
-              data-link
-              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; GH &quot;
-            </a>
-          </li>
-        </SocialContact>
-      </Nav>
+                  <li>{link.pathname}</li>
+                </Link>
+              ))}
+            </Ul>
+            <BasicContact>
+              <Span>Let&apos;s Connect</Span>
+              <ul>
+                <li>
+                  <a
+                    data-link
+                    href="mailto:princenwakanma1996@gmail.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Mail me
+                  </a>
+                </li>
+              </ul>
+            </BasicContact>
+          </NavContainer>
+          <SocialContact>
+            <li data-link>
+              <a
+                data-link
+                href="https://twitter.com/Dechain_Dev"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                &quot; TE &quot;
+              </a>
+            </li>
+            <li data-link>
+              <a
+                data-link
+                href="https://twitter.com/Dechain_Dev"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                &quot; TW &quot;
+              </a>
+            </li>
+            <li data-link>
+              <a
+                data-link
+                href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                &quot; LN &quot;
+              </a>
+            </li>
+            <li data-link>
+              <a
+                data-link
+                href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                &quot; GH &quot;
+              </a>
+            </li>
+          </SocialContact>
+        </Nav>
+      )}
     </HeaderContainer>
   );
 };

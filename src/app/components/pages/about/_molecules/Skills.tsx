@@ -99,10 +99,7 @@ const Skills = () => {
           <h3>Languages & Frameworks</h3>
           <WallContainer>
             <VBoxes>
-              <Box
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.5, stiffness: 50 }}
-              >
+              <Box>
                 <span>HTML</span>
                 <BoxFace>
                   <h4>
@@ -528,7 +525,7 @@ const Wall = styled(motion.div)`
     }
 
     @media (max-width: 30em) {
-      margin-top: -12rem;
+      margin-top: -22rem;
     }
   }
 `;

@@ -16,7 +16,7 @@ const Projects = () => {
     visible: (i: number = 1) => ({
       opacity: 1,
       transition: {
-        staggerChildren: 0.5,
+        staggerChildren: 1,
         delayChildren: i * 0,
       },
     }),
@@ -50,7 +50,7 @@ const Projects = () => {
         <Container initial="hidden" animate="visible" variants={container}>
           {projectDetails.map((project) => {
             return (
-              <motion.div key={project.id} variants={child} whileInView={child}>
+              <motion.div key={project.id} variants={child}>
                 <ImageCard
                   img={project.image}
                   alt=""
@@ -98,9 +98,4 @@ const Container = styled(motion.div)`
       grid-column: span 2 / span 2;
     }
   }
-
-  /* @media (max-width: 50em) {
-    column-gap: 0;
-    row-gap: 4rem;
-  } */
 `;
