@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import useToggle from "@/hooks/useToggle";
 
@@ -32,6 +32,39 @@ const linkedArr = [
 const FramerLink = motion(Link);
 
 const Header = () => {
+  const ulContainer: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: (i: number = 1) => ({
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: i * 0,
+      },
+    }),
+  };
+
+  const child: Variants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 80,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
   const { handleToggle, toggle, buttonToggleRef, toggledElementRef } =
     useToggle({
       eventType: "click",
@@ -103,84 +136,107 @@ const Header = () => {
         onClick={() => handleToggle()}
         className={toggle ? "open" : "close"}
       ></Button>
-      {toggle && (
-        <Nav
-          ref={toggledElementRef}
-          aria-label="Contact menu"
-          className={"open"}
-        >
-          <NavContainer>
-            <Ul>
-              {linkedArr.map((link) => (
-                <Link
-                  key={link.id}
-                  href={link.pathname === "articles" ? "#" : link.path}
-                  onClick={() => handleToggle("override", false)}
-                >
-                  <li>{link.pathname}</li>
-                </Link>
-              ))}
-            </Ul>
-            <BasicContact>
-              <Span>Let&apos;s Connect</Span>
-              <ul>
-                <li>
-                  <a
-                    data-link
-                    href="mailto:princenwakanma1996@gmail.com"
-                    target="_blank"
-                    rel="noreferrer"
+      <AnimatePresence>
+        {toggle && (
+          <Nav
+            key="modal"
+            ref={toggledElementRef}
+            aria-label="Contact menu"
+            className={"open"}
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+          >
+            <NavContainer>
+              <Ul initial="hidden" variants={ulContainer} animate="visible">
+                {linkedArr.map((link) => (
+                  <motion.div
+                    key={link.id}
+                    onClick={() => handleToggle("override", false)}
+                    variants={child}
                   >
-                    Mail me
-                  </a>
-                </li>
-              </ul>
-            </BasicContact>
-          </NavContainer>
-          <SocialContact>
-            <li data-link>
-              <a
-                data-link
-                href="https://twitter.com/Dechain_Dev"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                &quot; TE &quot;
-              </a>
-            </li>
-            <li data-link>
-              <a
-                data-link
-                href="https://twitter.com/Dechain_Dev"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                &quot; TW &quot;
-              </a>
-            </li>
-            <li data-link>
-              <a
-                data-link
-                href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                &quot; LN &quot;
-              </a>
-            </li>
-            <li data-link>
-              <a
-                data-link
-                href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                &quot; GH &quot;
-              </a>
-            </li>
-          </SocialContact>
-        </Nav>
-      )}
+                    <Link href={link.pathname === "articles" ? "#" : link.path}>
+                      <li>{link.pathname}</li>
+                    </Link>
+                  </motion.div>
+                ))}
+              </Ul>
+              <BasicContact>
+                <Span
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    delay: 0.5,
+                    // type: "spring",
+                    // damping: 12,
+                    // stiffness: 100,
+                  }}
+                >
+                  Let&apos;s Connect
+                </Span>
+                <motion.ul
+                  initial="hidden"
+                  variants={ulContainer}
+                  animate="visible"
+                >
+                  <motion.li variants={child}>
+                    <a
+                      data-link
+                      href="mailto:princenwakanma1996@gmail.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Mail me
+                    </a>
+                  </motion.li>
+                </motion.ul>
+              </BasicContact>
+            </NavContainer>
+            <SocialContact>
+              <li data-link>
+                <a
+                  data-link
+                  href="https://twitter.com/Dechain_Dev"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  &quot; TE &quot;
+                </a>
+              </li>
+              <li data-link>
+                <a
+                  data-link
+                  href="https://twitter.com/Dechain_Dev"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  &quot; TW &quot;
+                </a>
+              </li>
+              <li data-link>
+                <a
+                  data-link
+                  href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  &quot; LN &quot;
+                </a>
+              </li>
+              <li data-link>
+                <a
+                  data-link
+                  href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  &quot; GH &quot;
+                </a>
+              </li>
+            </SocialContact>
+          </Nav>
+        )}
+      </AnimatePresence>
     </HeaderContainer>
   );
 };
@@ -350,7 +406,7 @@ const Button = styled.button`
   }
 `;
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   display: flex;
   box-shadow: none;
   position: fixed;
@@ -365,35 +421,22 @@ const Nav = styled.nav`
   background-color: #fff;
   color: ${({ theme }) => theme.colors.secondaryColor};
 
-  ${HeaderContainer} &:not(.open) {
-    opacity: 1;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  &::before {
+  /* &::before {
     ${HeaderContainer} &:not(.open):before {
       -webkit-transform: scaleX(0.3826) scaleY(0.27);
       -ms-transform: scaleX(0.3826) scaleY(0.27);
       transform: scaleX(0.3826) scaleY(0.27);
     }
-  }
+  } */
 `;
 
-const Ul = styled.ul`
+const Ul = styled(motion.ul)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 8rem 0 2rem;
-  transition-delay: 200ms;
-  transition: opacity, transform 0.3s;
-
-  ${HeaderContainer} ${Nav}:not(.open) & {
-    transform: translateY(50px);
-    opacity: 0;
-    width: 100%;
-  }
+  width: 100%;
 
   ${HeaderContainer} & {
     line-height: 2.5;
@@ -499,24 +542,16 @@ const BasicContact = styled.div`
     }
   }
 
-  ${HeaderContainer} ${Nav}:not(.open) & {
-    opacity: 0;
-  }
-
   ${HeaderContainer} ${Nav} & {
     margin: 0 0 5.6rem;
   }
 `;
 
-const Span = styled.span`
+const Span = styled(motion.span)`
   color: #c6d2f6;
   letter-spacing: 0.25em;
   -webkit-text-transform: uppercase;
   text-transform: uppercase;
-
-  ${HeaderContainer} ${Nav}:not(.open) ${BasicContact} & {
-    opacity: 0;
-  }
 `;
 
 const SocialContact = styled.ul`
@@ -530,17 +565,6 @@ const SocialContact = styled.ul`
 
   transition-delay: 600ms;
   transition: opacity, transform 0.3s;
-
-  ${HeaderContainer} ${Nav}:not(.open) & {
-    -webkit-transform: translateY(30px);
-    -ms-transform: translateY(30px);
-    transform: translateY(30px);
-    opacity: 0;
-  }
-
-  & li:not(:last-of-type) {
-    /* margin-right: 3.56rem; */
-  }
 
   li {
     display: inline-block;
@@ -583,4 +607,5 @@ const NavContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 2.4rem;
 `;
