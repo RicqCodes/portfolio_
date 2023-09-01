@@ -617,7 +617,8 @@ const Box = styled(motion.div)`
   &.link {
     & > div:first-child {
       background-color: #323232;
-      border: 1px solid #323232;
+      background-color: ${({ theme }) => theme.colors.secondaryColor};
+      border: 1px solid ${({ theme }) => theme.colors.secondaryColor};
       box-sizing: border-box;
       transition: background-color 0.5s;
     }
@@ -666,7 +667,7 @@ const BoxFace = styled(Faces)`
     line-height: 100px;
     text-align: center;
     font-size: 40px;
-    color: #bababa;
+    /* color: #bababa; */
     -webkit-transform: rotate(-135deg);
     -ms-transform: rotate(-135deg);
     -moz-transform: rotate(-135deg);

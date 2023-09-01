@@ -5,6 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import useToggle from "@/hooks/useToggle";
+import ToggleSwitch from "../Common/ToggleSwitch";
+import ThemeSwitch from "./ThemeSwitch";
 
 const linkedArr = [
   {
@@ -31,7 +33,13 @@ const linkedArr = [
 
 const FramerLink = motion(Link);
 
-const Header = () => {
+const Header = ({
+  theme,
+  themeToggler,
+}: {
+  theme: string;
+  themeToggler: () => void;
+}) => {
   const ulContainer: Variants = {
     hidden: {
       opacity: 0,
@@ -94,40 +102,45 @@ const Header = () => {
       <Logo aria-label="Logo, go to homepage">
         <Link href="/">P.</Link>
       </Logo>
-      <SocialContainer>
-        <li>
-          <a href="https://t.me/" target="_blank" rel="noreferrer noopener">
-            &quot; TG &quot;
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://twitter.com/Dechain_Dev"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            &quot; TW &quot;
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            &quot; LN &quot;
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            &quot; GH &quot;
-          </a>
-        </li>
-      </SocialContainer>
+      <RightContainer>
+        <SocialContainer>
+          <li>
+            <a href="https://t.me/" target="_blank" rel="noreferrer noopener">
+              &quot; TG &quot;
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://twitter.com/Dechain_Dev"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              &quot; TW &quot;
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              &quot; LN &quot;
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              &quot; GH &quot;
+            </a>
+          </li>
+        </SocialContainer>
+        <ToggleSwitch switchToggle={themeToggler}>
+          <ThemeSwitch theme={theme} />
+        </ToggleSwitch>
+      </RightContainer>
       <Button
         ref={buttonToggleRef}
         type="button"
@@ -603,4 +616,11 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 2.4rem;
+`;
+
+const RightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.8rem;
 `;

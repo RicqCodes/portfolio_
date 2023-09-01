@@ -2,8 +2,9 @@ import Letter from "@/app/components/Common/AnimatedLetter";
 import { useScroll } from "framer-motion";
 import React, { useRef } from "react";
 import { styled } from "styled-components";
+
+import AnimatedTracker from "@/app/components/Common/AnimatedTracker";
 import Experience from "./Experience";
-import { motion } from "framer-motion";
 import { experienceData } from "./data";
 
 const Experiences = () => {
@@ -17,7 +18,7 @@ const Experiences = () => {
     <MainContainer>
       <Letter text="Experiences" />
       <InnerContainer ref={containerRef}>
-        <Tracker style={{ scaleY: scrollYProgress }} />
+        <AnimatedTracker scrollYProgress={scrollYProgress} />
         <ExperienceContainer>
           {experienceData.map((exp) => (
             <Experience
@@ -51,16 +52,6 @@ const InnerContainer = styled.div`
   position: relative;
   gap: 4rem;
   height: 100%;
-`;
-
-const Tracker = styled(motion.div)`
-  background-color: rgb(27 27 27);
-  transform-origin: top;
-  width: 4px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const ExperienceContainer = styled.ul`

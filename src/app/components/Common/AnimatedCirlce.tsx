@@ -28,7 +28,7 @@ const AnimatedCirlce = ({
 export default AnimatedCirlce;
 
 const Figure = styled.figure`
-  stroke: #1b1b1b;
+  stroke: ${({ theme }) => theme.colors.secondaryColor};
   left: -3.6rem;
   position: absolute;
 
@@ -41,17 +41,17 @@ const Figure = styled.figure`
 
     circle:nth-child(1) {
       stroke-width: 1;
-      stroke: #7645da;
+      stroke: ${({ theme }) => theme.colors.variantColor};
       fill: none;
     }
     circle:nth-child(2) {
       stroke-width: 5px;
-      fill: #f5f5f5;
+      fill: ${({ theme }) => theme.colors.primaryColor};
     }
 
     circle:nth-child(3) {
       stroke-width: 1;
-      fill: #7645da;
+      fill: ${({ theme }) => theme.colors.variantColor};
       /* .animate-pulse {
     animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite;
 } */

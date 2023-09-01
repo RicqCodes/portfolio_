@@ -76,7 +76,11 @@ const ExperienceContainer = styled(motion.li)`
 
     a {
       margin-left: 1rem;
-      color: #7645da;
+      color: ${({ theme }) => theme.colors.variantColor};
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -92,17 +96,16 @@ const ExperienceContainer = styled(motion.li)`
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      color: ${({ theme }) => theme.colors.variantColor};
 
       svg {
         font-size: 1.6rem;
-        color: blue;
       }
     }
 
     > span:last-child {
       svg {
         font-size: 2rem;
-        color: red;
       }
     }
   }

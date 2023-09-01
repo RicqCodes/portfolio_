@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
         <GlobalStyles />
         <Container>
-          <Header />
+          <Header theme={theme} themeToggler={themeToggler} />
           <Main>{children}</Main>
           {/* <Footer /> */}
         </Container>

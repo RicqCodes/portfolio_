@@ -6,6 +6,7 @@ export const lightTheme = {
     secondaryColor: "#171716",
     tertiaryColor: "#f4f3f2",
     textColor: "#727170",
+    variantColor: "#7645da",
   },
 };
 export const darkTheme = {
@@ -14,5 +15,6 @@ export const darkTheme = {
     secondaryColor: "#e9e8e5",
     tertiaryColor: "#2d2d2d",
     textColor: "#e3e2df",
+    variantColor: "#d6c7f4",
   },
 };
