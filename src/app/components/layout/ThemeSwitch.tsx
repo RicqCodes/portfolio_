@@ -1,35 +1,11 @@
 import React from "react";
 import { styled } from "styled-components";
 import { BsFillSunFill, BsMoonStarsFill } from "react-icons/bs";
-import { motion, AnimatePresence } from "framer-motion";
-
-const M = React.forwardRef((props, ref) => (
-  <BsMoonStarsFill {...props} ref={ref} />
-));
-
-const S = React.forwardRef((props, ref) => (
-  <BsFillSunFill {...props} ref={ref} />
-));
-
-const Moon = motion(M);
-const Sun = motion(S);
 
 const ThemeSwitch = ({ theme }: { theme: string }) => {
   return (
     <Container>
-      <AnimatePresence>
-        {theme === "light" ? (
-          <Moon animate={{ opacity: 1 }} key="moon" />
-        ) : (
-          <BsFillSunFill style={{}} />
-          //   <Sun
-          //     animate={{ rotate: 180 }}
-          //     transition={{ repeat: Infinity }}
-          //     key="sun"
-          //   />
-          //   <BsFillSunFill />
-        )}
-      </AnimatePresence>
+      {theme === "light" ? <BsMoonStarsFill /> : <BsFillSunFill />}
     </Container>
   );
 };
