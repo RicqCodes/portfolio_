@@ -309,14 +309,16 @@ const Logo = styled.div`
   a {
     font-size: 3.6rem;
     font-weight: 600;
+    font-family: monospace;
+
     color: ${({ theme }) => theme.colors.tertiaryColor};
   }
 
   @media (max-width: 34em) {
-    height: 4.8rem;
-    width: 4.8rem;
+    height: 4rem;
+    width: 4rem;
     a {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
     }
   }
 `;
