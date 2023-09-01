@@ -1,12 +1,10 @@
 "use client";
 
 import { createGlobalStyle } from "styled-components";
+import { lightTheme, darkTheme } from "../theme";
 
 const GlobalStyles = createGlobalStyle`
 
-:root {
-
-}
 
 html {
         font-size: 62.5%;

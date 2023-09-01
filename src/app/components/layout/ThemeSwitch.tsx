@@ -19,11 +19,15 @@ const ThemeSwitch = ({ theme }: { theme: string }) => {
     <Container>
       <AnimatePresence>
         {theme === "light" ? (
-          //   <Moon initial={{ opacity: 0 }} animate={{ opacity: 1 }} key="moon" />
-          <BsMoonStarsFill />
+          <Moon animate={{ opacity: 1 }} key="moon" />
         ) : (
-          //   <Sun initial={{ opacity: 0 }} animate={{ opacity: 1 }} key="sun" />
-          <BsFillSunFill />
+          <BsFillSunFill style={{}} />
+          //   <Sun
+          //     animate={{ rotate: 180 }}
+          //     transition={{ repeat: Infinity }}
+          //     key="sun"
+          //   />
+          //   <BsFillSunFill />
         )}
       </AnimatePresence>
     </Container>
@@ -42,8 +46,18 @@ const Container = styled.div`
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.secondaryColor};
 
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   svg {
     color: ${({ theme }) => theme.colors.primaryColor};
     font-size: 1.9rem;
+    animation: rotate 10s linear infinite;
   }
 `;
