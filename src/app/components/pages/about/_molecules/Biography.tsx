@@ -20,6 +20,7 @@ const Biography = () => {
               img="https://i.imgur.com/PTYA65R.png"
               alt="A picture of prince nwakanma"
               borderRadius
+              priority={true}
               fullWidth
             />
           </motion.div>

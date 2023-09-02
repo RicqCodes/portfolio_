@@ -7,7 +7,7 @@ import { opaque, slideInDown, slideInLeft } from "@/styles/animate.styled";
 import PageContainer from "../_molecules/PageContainer";
 import ImageCard from "../_molecules/ImageCard";
 
-const FramerImage = motion(Image);
+import codeSnippet from "../../../../../public/code-snippet.jpg";
 
 const Home: React.FC = () => {
   return (
@@ -47,8 +47,9 @@ const Home: React.FC = () => {
             initial={{ x: 80 }}
             animate={{ x: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
+            style={{ overflow: "hidden" }}
           >
-            <ImageCard img="/code-snippet.jpg" alt="code snippet" />
+            <ImageCard img={codeSnippet} alt="code snippet" priority={true} />
           </motion.div>
         </InnerContent>
       </PageContainer>

@@ -12,6 +12,7 @@ const ImageCard = ({
   borderRadius,
   ExtraComp,
   fixedHeight,
+  priority,
 }: {
   img: StaticImageData | string;
   alt: string;
@@ -19,6 +20,7 @@ const ImageCard = ({
   borderRadius?: boolean;
   fixedHeight?: boolean;
   ExtraComp?: React.ReactNode;
+  priority?: boolean;
 }) => {
   return (
     <Picture $fullWidth={fullWidth} $borderRadius={borderRadius} $fixedHeight>
@@ -32,7 +34,7 @@ const ImageCard = ({
             transition={{ duration: 0.6 }}
             placeholder="blur"
             quality={100}
-            // fill
+            priority={priority}
             width="100"
             height="100"
             sizes="(max-width: 768px) 100vw,
