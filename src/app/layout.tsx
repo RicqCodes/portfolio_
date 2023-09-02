@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 
@@ -43,6 +44,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <Layout>{children}</Layout>
         </StyledComponentsRegistry>
+        <Analytics />
       </body>
     </html>
   );
