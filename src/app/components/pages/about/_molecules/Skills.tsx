@@ -96,7 +96,7 @@ const Skills = () => {
         viewport={{ once: true, margin: "-30%" }}
       >
         <Wall variants={child}>
-          <h4>Languages & Frameworks</h4>
+          <h3>Languages & Frameworks</h3>
           <WallContainer>
             <VBoxes>
               <Box>
@@ -279,7 +279,7 @@ const Skills = () => {
           </WallContainer>
         </Wall>
         <Wall variants={child2}>
-          <h4>Tools & Libraries</h4>
+          <h3>Tools & Libraries</h3>
           <WallContainer>
             <VBoxes>
               <Box>
@@ -493,7 +493,7 @@ const Wall = styled(motion.div)`
   justify-content: center;
   overflow: hidden;
 
-  h4 {
+  h3 {
     position: absolute;
     font-size: 2.4rem;
     font-weight: 600;
@@ -502,7 +502,7 @@ const Wall = styled(motion.div)`
   &:first-child {
     transform: rotate(180deg);
 
-    h4 {
+    h3 {
       bottom: 11rem;
       right: -4rem;
       transform: rotate(135deg);
@@ -518,7 +518,7 @@ const Wall = styled(motion.div)`
   }
 
   &:last-child {
-    h4 {
+    h3 {
       bottom: 10rem;
       right: 2rem;
       transform: rotate(-45deg);
@@ -668,6 +668,7 @@ const BoxFace = styled(Faces)`
     text-align: center;
     font-size: 40px;
     /* color: #bababa; */
+    color: "#000";
     -webkit-transform: rotate(-135deg);
     -ms-transform: rotate(-135deg);
     -moz-transform: rotate(-135deg);
