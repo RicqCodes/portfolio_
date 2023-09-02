@@ -1,7 +1,7 @@
 import React from "react";
 import { css, styled } from "styled-components";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 const FramerImage = motion(Image);
 
@@ -13,7 +13,7 @@ const ImageCard = ({
   ExtraComp,
   fixedHeight,
 }: {
-  img: string;
+  img: StaticImageData | string;
   alt: string;
   fullWidth?: boolean;
   borderRadius?: boolean;
@@ -23,21 +23,25 @@ const ImageCard = ({
   return (
     <Picture $fullWidth={fullWidth} $borderRadius={borderRadius} $fixedHeight>
       <div>
-        <FramerImage
-          src={img}
-          alt={alt}
-          blurDataURL={img}
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.6 }}
-          placeholder="blur"
-          quality={100}
-          // fill
-          width="100"
-          height="100"
-          sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-        />
+        {typeof img === "string" ? (
+          <FramerImage
+            src={img}
+            alt={alt}
+            blurDataURL={img as string}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+            placeholder="blur"
+            quality={100}
+            // fill
+            width="100"
+            height="100"
+            sizes="(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                33vw"
+          />
+        ) : (
+          <FramerImage src={img} alt={alt} />
+        )}
       </div>
       {ExtraComp && ExtraComp}
     </Picture>

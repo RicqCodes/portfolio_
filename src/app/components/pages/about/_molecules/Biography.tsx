@@ -25,12 +25,12 @@ const Biography = () => {
           </motion.div>
         </ImageContainer>
         <BiographyContainer>
-          <motion.h4
+          <motion.h3
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
           >
             quick biography
-          </motion.h4>
+          </motion.h3>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
@@ -136,9 +136,10 @@ const BiographyContainer = styled.div`
   gap: 2.4rem;
   grid-column: span 5 / span 5;
 
-  h4 {
+  h3 {
     text-transform: capitalize;
     font-weight: 600;
+    font-size: 2.4rem;
   }
 
   @media (max-width: 50em) {

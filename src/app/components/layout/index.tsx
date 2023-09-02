@@ -7,9 +7,11 @@ import Footer from "./Footer";
 import { useDarkMode } from "@/hooks/useTheme";
 import { lightTheme, darkTheme } from "@/styles/theme";
 import GlobalStyles from "@/styles/global/global.styled";
+import { usePathname } from "next/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { theme, themeToggler } = useDarkMode();
+  const pathname = usePathname();
 
   return (
     <>
@@ -18,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Container>
           <Header theme={theme} themeToggler={themeToggler} />
           <Main>{children}</Main>
-          {/* <Footer /> */}
+          {pathname !== "/" && <Footer />}
         </Container>
       </ThemeProvider>
     </>

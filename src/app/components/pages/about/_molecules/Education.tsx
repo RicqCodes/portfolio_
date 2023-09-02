@@ -54,7 +54,6 @@ const InnerContainer = styled.div`
   position: relative;
   gap: 4rem;
   height: 100%;
-  padding-bottom: 20rem;
 `;
 
 const ExperienceContainer = styled.ul`

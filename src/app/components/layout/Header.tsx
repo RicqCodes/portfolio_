@@ -144,7 +144,9 @@ const Header = ({
       <Button
         ref={buttonToggleRef}
         type="button"
-        aria-label="Open contact menu"
+        role="button"
+        aria-hidden="true"
+        aria-label="open & close menu"
         aria-controls="contact-menu"
         onClick={() => handleToggle()}
         className={toggle ? "open" : "close"}
@@ -297,28 +299,32 @@ const NavLinks = styled.ul`
   }
 `;
 
-const Logo = styled.div`
+const Logo = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.secondaryColor};
+  border: 2px solid ${({ theme }) => theme.colors.secondaryColor};
   height: 6.4rem;
   width: 6.4rem;
   border-radius: 50%;
+
+  &:hover {
+    color: px solid ${({ theme }) => theme.colors.primaryColor};
+  }
 
   a {
     font-size: 3.6rem;
     font-weight: 600;
     font-family: monospace;
 
-    color: ${({ theme }) => theme.colors.tertiaryColor};
+    color: ${({ theme }) => theme.colors.secondaryColor};
   }
 
   @media (max-width: 34em) {
-    height: 4rem;
-    width: 4rem;
+    height: 4.8rem;
+    width: 4.8rem;
     a {
-      font-size: 2.4rem;
+      font-size: 2.8rem;
     }
   }
 `;
@@ -350,6 +356,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.secondaryColor};
   border: none;
   z-index: 9;
+  outline: none;
 
   @media (max-width: 58em) {
     display: inline;

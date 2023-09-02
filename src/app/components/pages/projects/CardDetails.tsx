@@ -24,7 +24,7 @@ const CardDetails = ({
       <InnerContainer>
         <Heading>
           <Top>
-            <h4>{tag}</h4>
+            <p>{tag}</p>
             <div>
               {buildTools.map((tool, i) => (
                 <p key={i}>{tool}</p>
@@ -44,10 +44,20 @@ const CardDetails = ({
             )}
           </p>
           <div>
-            <a href={url} target="_blank" rel="noreferrer">
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Web link for project"
+            >
               <BiLinkAlt />
             </a>
-            <a href={repo} target="_blank" rel="noreferrer">
+            <a
+              href={repo}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Github repository link for project"
+            >
               <RxGithubLogo />
             </a>
           </div>
@@ -88,7 +98,7 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: start;
 
-  h4 {
+  > p {
     font-size: 1.7rem;
     font-weight: 500;
     text-transform: capitalize;

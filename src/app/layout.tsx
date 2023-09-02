@@ -29,6 +29,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <meta
+        name="theme-color"
+        media="(prefers-color-scheme: light)"
+        content="#e3e2df"
+      />
+      <meta
+        name="theme-color"
+        media="(prefers-color-scheme: dark)"
+        content="#171716"
+      />
       <body className={poppins.className} suppressHydrationWarning={true}>
         <StyledComponentsRegistry>
           <Layout>{children}</Layout>

@@ -3,14 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { styled } from "styled-components";
-import {
-  bounce,
-  bounceIn,
-  opaque,
-  slideInDown,
-  slideInLeft,
-  slideInRight,
-} from "@/styles/animate.styled";
+import { opaque, slideInDown, slideInLeft } from "@/styles/animate.styled";
 import PageContainer from "../_molecules/PageContainer";
 import ImageCard from "../_molecules/ImageCard";
 

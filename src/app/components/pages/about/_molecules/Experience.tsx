@@ -36,12 +36,12 @@ const Experience = ({
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
         viewport={{ once: true, margin: "-20%" }}
       >
-        <h3>
+        <h5>
           {pos}
           <a href="" target="_blank" rel="noreferrer">
             {!comp ? "" : `@${comp}`}
           </a>
-        </h3>
+        </h5>
         <span>
           <span>
             <BsCalendar2Check />
@@ -60,17 +60,17 @@ const Experience = ({
 
 export default Experience;
 
-const MainContainer = styled.div`
+const MainContainer = styled.li`
   display: inline;
 `;
 
-const ExperienceContainer = styled(motion.li)`
+const ExperienceContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
 
-  > h3 {
+  > h5 {
     font-size: 2rem;
     font-weight: 600;
 

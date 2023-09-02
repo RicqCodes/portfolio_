@@ -1,5 +1,5 @@
 import React from "react";
-import Projects from "../components/pages/projects/_molecules";
+import Projects from "../components/pages/projects";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { styled } from "styled-components";
-import PageContainer from "../../_molecules/PageContainer";
+import PageContainer from "../_molecules/PageContainer";
 import Letter from "@/app/components/Common/AnimatedLetter";
-import ImageCard from "../../_molecules/ImageCard";
-import { projectDetails } from "./projectDetails";
-import CardDetails from "../CardDetails";
+import ImageCard from "../_molecules/ImageCard";
+import { projectDetails } from "./_molecules/projectDetails";
+import CardDetails from "./CardDetails";
 import { Variants, motion } from "framer-motion";
 
 const Projects = () => {
@@ -92,10 +92,15 @@ const Container = styled(motion.div)`
   grid-template-columns: repeat(2, minmax(0, 1fr));
   row-gap: 5rem;
   column-gap: 5rem;
+  margin-bottom: 16rem;
 
   > div {
     @media (max-width: 50em) {
       grid-column: span 2 / span 2;
     }
+  }
+
+  @media (max-width: 30em) {
+    margin-bottom: 4rem;
   }
 `;
