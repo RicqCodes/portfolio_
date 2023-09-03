@@ -145,7 +145,6 @@ const Header = ({
         ref={buttonToggleRef}
         type="button"
         role="button"
-        aria-hidden="true"
         aria-label="open & close menu"
         aria-controls="contact-menu"
         onClick={() => handleToggle()}

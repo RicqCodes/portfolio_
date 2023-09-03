@@ -23,7 +23,7 @@ export const projectDetails = [
     builtTool: ["reactJS", "styled-components", "infura"],
     name: "NFTList",
     description:
-      "An NFT Listing app for the ethereum blockchian, features rich design and seemless animations.An NFT Listing app for the ethereum blockchian, features rich design and seemless animations",
+      "An NFT Listing app for the ethereum blockchian, features rich design and seamless animations. It returns information about the NFTs like it's metadata and direct link to the NFT on opensea.",
     image: nftList,
     repo: "https://github.com/ricqcodes",
     url: "https://ricqcodes-nftlist.netlify.app",

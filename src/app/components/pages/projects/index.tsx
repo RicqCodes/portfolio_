@@ -53,7 +53,7 @@ const Projects = () => {
               <motion.div key={project.id} variants={child}>
                 <ImageCard
                   img={project.image}
-                  alt=""
+                  alt={`${project.name} image`}
                   fullWidth
                   fixedHeight
                   ExtraComp={
