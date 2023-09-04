@@ -45,7 +45,7 @@ const ImageCard = ({
           <FramerImage
             src={img}
             alt={alt}
-            priority={true}
+            priority={priority}
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.6 }}
           />
