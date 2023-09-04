@@ -42,7 +42,13 @@ const ImageCard = ({
                 33vw"
           />
         ) : (
-          <FramerImage src={img} alt={alt} />
+          <FramerImage
+            src={img}
+            alt={alt}
+            priority={true}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+          />
         )}
       </div>
       {ExtraComp && ExtraComp}
