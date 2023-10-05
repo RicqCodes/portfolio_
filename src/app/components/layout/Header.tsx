@@ -26,7 +26,7 @@ const linkedArr = [
   },
   {
     id: 4,
-    path: "",
+    path: "/articles",
     pathname: "articles",
   },
 ];

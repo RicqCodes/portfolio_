@@ -8,6 +8,7 @@ import PageContainer from "../_molecules/PageContainer";
 import ImageCard from "../_molecules/ImageCard";
 
 import codeSnippet from "../../../../../public/code-snippet.jpg";
+import Link from "next/link";
 
 const Home: React.FC = () => {
   return (
@@ -41,6 +42,24 @@ const Home: React.FC = () => {
                   </li>
                 </Ul>
               </InnerContentBottom>
+              <ResumeContainer
+                animate={{
+                  backgroundColor: ["hsl(0,100,50)", "hsl(240,100,50)"],
+                }}
+                transition={{
+                  ease: "linear",
+                  duration: 5,
+                  repeat: Infinity,
+                }}
+              >
+                <Resume
+                  href="/NwakanmaPrinceResume.pdf"
+                  target={"_blank"}
+                  download={true}
+                >
+                  Resume
+                </Resume>
+              </ResumeContainer>
             </Content>
           </Article>
           <motion.div
@@ -162,4 +181,22 @@ const Ul = styled.ul`
       width: 40%;
     }
   }
+`;
+
+const ResumeContainer = styled(motion.div)`
+  width: 12rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+`;
+
+const Resume = styled(Link)`
+  width: 100%;
+  height: 100%;
+  /* background: ${({ theme }) => theme.colors.secondaryColor}; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+  animation: ${opaque} 0.8s ease-in;
 `;

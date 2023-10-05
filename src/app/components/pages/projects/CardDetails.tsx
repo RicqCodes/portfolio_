@@ -44,22 +44,34 @@ const CardDetails = ({
             )}
           </p>
           <div>
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Web link for project"
-            >
-              <BiLinkAlt />
-            </a>
-            <a
-              href={repo}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Github repository link for project"
-            >
-              <RxGithubLogo />
-            </a>
+            {url ? (
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Web link for project"
+              >
+                <BiLinkAlt />
+              </a>
+            ) : (
+              <>
+                <div></div>
+              </>
+            )}
+            {repo ? (
+              <a
+                href={repo}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Github repository link for project"
+              >
+                <RxGithubLogo />
+              </a>
+            ) : (
+              <>
+                <div></div>
+              </>
+            )}
           </div>
         </Content>
       </InnerContainer>

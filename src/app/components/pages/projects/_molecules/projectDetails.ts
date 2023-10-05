@@ -3,6 +3,7 @@ import nftList from "../../../../../../public/images/nftList.png";
 import hype from "../../../../../../public/images/hype.png";
 import forkify from "../../../../../../public/images/forkify.png";
 import pomodoro from "../../../../../../public/images/pomodoro.png";
+import rankbloc from "../../../../../../public/images/rankbloc.png";
 import fuseWallet from "../../../../../../public/images/fuseWallet.png";
 
 export const projectDetails = [
@@ -61,15 +62,26 @@ export const projectDetails = [
     repo: "https://github.com/ricqcodes",
     url: "https://ricqcodes-forkify.netlify.app",
   },
+  // {
+  //   id: 6,
+  //   tag: "webApp",
+  //   builtTool: ["html", "css", "vanillaJS"],
+  //   name: "Pomodoro",
+  //   description:
+  //     "A simple pomodoro app built with html,css and javascript using the MVC architecture. The pomodoro app is able to countdown from an already predefined time",
+  //   image: pomodoro,
+  //   repo: "https://github.com/ricqcodes",
+  //   url: "https://riqcodes-pomodoro.netlify.app",
+  // },
   {
     id: 6,
-    tag: "webApp",
-    builtTool: ["html", "css", "vanillaJS"],
-    name: "Pomodoro",
+    tag: "web3",
+    builtTool: ["NextJs", "styled components", "NodeJs", "Solidity"],
+    name: "RankBloc",
     description:
-      "A simple pomodoro app built with html,css and javascript using the MVC architecture. The pomodoro app is able to countdown from an already predefined time",
-    image: pomodoro,
+      "A fully gamified hybrid web3 blogging application with a complex ranking and recommendation algorithms built with Nextjs and Nodejs",
+    image: rankbloc,
     repo: "https://github.com/ricqcodes",
-    url: "https://riqcodes-pomodoro.netlify.app",
+    url: "",
   },
 ];
