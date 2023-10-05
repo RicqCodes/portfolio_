@@ -7,7 +7,7 @@ const Articles = () => {
   return (
     <PageContainer>
       <InnerContent>
-        <Letter text="Articles are coming soon" />
+        <Letter text="Articles are coming soon..." />
       </InnerContent>
     </PageContainer>
   );
