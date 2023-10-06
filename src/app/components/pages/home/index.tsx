@@ -42,23 +42,25 @@ const Home: React.FC = () => {
                   </li>
                 </Ul>
               </InnerContentBottom>
-              <ResumeContainer
-                animate={{
-                  backgroundColor: ["hsl(0,100,50)", "hsl(240,100,50)"],
-                }}
-                transition={{
-                  ease: "linear",
-                  duration: 5,
-                  repeat: Infinity,
-                }}
-              >
-                <Resume
-                  href="/NwakanmaPrinceResume.pdf"
-                  target={"_blank"}
-                  download={true}
+              <ResumeContainer>
+                <InnerContainer
+                  animate={{
+                    backgroundColor: ["hsl(0,100,50)", "hsl(240,100,50)"],
+                  }}
+                  transition={{
+                    ease: "linear",
+                    duration: 5,
+                    repeat: Infinity,
+                  }}
                 >
-                  Resume
-                </Resume>
+                  <Resume
+                    href="/NwakanmaPrinceResume.pdf"
+                    target={"_blank"}
+                    download={true}
+                  >
+                    Resume
+                  </Resume>
+                </InnerContainer>
               </ResumeContainer>
             </Content>
           </Article>
@@ -183,7 +185,16 @@ const Ul = styled.ul`
   }
 `;
 
-const ResumeContainer = styled(motion.div)`
+const ResumeContainer = styled.div`
+  display: flex;
+  width: 100%;
+
+  @media (max-width: 48rem) {
+    justify-content: center;
+  }
+`;
+
+const InnerContainer = styled(motion.div)`
   width: 12rem;
   height: 4rem;
   border-radius: 0.5rem;
