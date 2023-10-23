@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import { styled } from "styled-components";
 import PageContainer from "../_molecules/PageContainer";
 import ContentCard from "../_molecules/ContentCard";
@@ -13,6 +14,10 @@ interface Iprops {
 }
 
 const Articles = ({ tags, allPost, params }: Iprops) => {
+  const searchParams = useSearchParams();
+  const tag = searchParams.get("tag");
+
+  console.log(tag);
   return (
     <PageContainer>
       <InnerContainer>
@@ -23,7 +28,7 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
             )}
             <SectionBlog>
               {allPost.map((post) => (
-                <Link key={post.id} href={`/blog/articles/${post.slug}`}>
+                <Link key={post.id} href={`/blog/${post.slug}`}>
                   <ContentCard
                     fullWidth
                     ExtraComp={
@@ -45,11 +50,9 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
               <h2>Tags</h2>
               <Categories>
                 {tags.map((tag) => (
-                  <Category
-                    key={tag.id}
-                    title={tag.name}
-                    url={`/blog/tags/${tag.name}`}
-                  />
+                  <Link key={tag.id} href={`/blog?tag=${tag.name}`}>
+                    <Category title={tag.name} />
+                  </Link>
                 ))}
               </Categories>
             </Aside>

@@ -10,13 +10,23 @@ export const metadata: Metadata = {
     "web development, web design, blog, technical writer, react, javascript, nextjs, typescript, solidity, node.js, html, css, styled-components",
 };
 
-const ArticleSinglePage = async ({ params }: { params: { slug: string } }) => {
-  let res = await fetch(`http://localhost:8000/api/posts/${params.slug}`, {
+async function getData(params: string) {
+  let res = await fetch(`http://localhost:8000/api/posts/${params}`, {
     next: { revalidate: 36000 },
   });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch article");
+  }
+
   res = await res.json();
 
-  return <Fragment>{<Article post={res} />}</Fragment>;
+  return res;
+}
+
+const ArticleSinglePage = async ({ params }: { params: { slug: string } }) => {
+  const result = await getData(params.slug);
+  return <Fragment>{<Article post={result} />}</Fragment>;
 };
 
 export default ArticleSinglePage;

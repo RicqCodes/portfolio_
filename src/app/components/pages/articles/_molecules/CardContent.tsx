@@ -28,7 +28,7 @@ const CardContent = ({ createdAt, title, tags, readTime }: Iprops) => {
         <h2>{title}</h2>
         <Categories>
           {tags?.map((tag) => (
-            <Category key={tag.id} title={tag.name} url="" />
+            <Category key={tag.id} title={tag.name} />
           ))}
         </Categories>
       </InnerContainer>

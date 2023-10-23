@@ -3,12 +3,11 @@ import { styled } from "styled-components";
 
 interface IProps {
   title: string;
-  url: string;
 }
-const Category = ({ title, url }: IProps) => {
+const Category = ({ title }: IProps) => {
   return (
     <CategoryContainer>
-      <Link href={url}>{title}</Link>
+      <p>{title}</p>
     </CategoryContainer>
   );
 };
@@ -16,13 +15,13 @@ const Category = ({ title, url }: IProps) => {
 export default Category;
 
 const CategoryContainer = styled.div`
-  padding: 8px 16px;
+  padding: 4px 12px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 12px;
   background-color: ${({ theme }) => theme.colors.tertiaryColor};
-  a {
+  p {
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   &:hover {
