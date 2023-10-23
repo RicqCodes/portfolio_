@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import React from "react";
-import Articles from "../components/pages/articles";
+import Articles from "../../components/pages/articles";
+import { Fragment } from "react";
 
 export const metadata: Metadata = {
   title: "Personal Blog",
@@ -10,11 +10,14 @@ export const metadata: Metadata = {
     "web development, web design, blog, technical writer, react, javascript, nextjs, typescript, solidity, node.js, html, css, styled-components",
 };
 
-const ArticlePage = () => {
+const ArticlePage = async () => {
+  const getAllPosts = await fetch("http://localhost:8000/api/posts");
+  const getAllTags = await fetch("http://localhost:8000/api/tags");
+
+  const results = await Promise.all([getAllPosts.json(), getAllTags.json()]);
+
   return (
-    <div>
-      <Articles />
-    </div>
+    <Fragment>{<Articles allPost={results[0]} tags={results[1]} />}</Fragment>
   );
 };
 

@@ -25,7 +25,6 @@ export const useDarkMode = () => {
   }, []);
 
   useEffect(() => {
-    console.log("from the last effect", theme);
     const localTheme = window.localStorage.getItem("theme") || theme;
     localTheme && setTheme(localTheme);
   }, [theme]);

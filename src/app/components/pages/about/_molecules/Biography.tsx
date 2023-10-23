@@ -1,7 +1,7 @@
 import Letter from "@/app/components/Common/AnimatedLetter";
 import React from "react";
 import { styled } from "styled-components";
-import ImageCard from "../../_molecules/ImageCard";
+import ContentCard from "../../_molecules/ContentCard";
 import NumberCountAnimation from "@/app/components/Common/NumberCountAnimation";
 import { motion } from "framer-motion";
 
@@ -16,12 +16,13 @@ const Biography = () => {
             animate={{ y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
           >
-            <ImageCard
+            <ContentCard
               img="https://i.imgur.com/PTYA65R.png"
               alt="A picture of prince nwakanma"
               borderRadius
               priority={true}
               fullWidth
+              imageAvail
             />
           </motion.div>
         </ImageContainer>

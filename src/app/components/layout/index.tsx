@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 export default Layout;
 
 const Container = styled.div`
-  max-width: 1440px;
+  max-width: 144rem;
   width: 100%;
   margin: auto;
   display: flex;

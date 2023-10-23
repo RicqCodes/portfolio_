@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { styled } from "styled-components";
 import { opaque, slideInDown, slideInLeft } from "@/styles/animate.styled";
 import PageContainer from "../_molecules/PageContainer";
-import ImageCard from "../_molecules/ImageCard";
+import ContentCard from "../_molecules/ContentCard";
 
 import codeSnippet from "../../../../../public/code-snippet.jpg";
 import Link from "next/link";
@@ -70,7 +70,12 @@ const Home: React.FC = () => {
             transition={{ type: "spring", stiffness: 100 }}
             style={{ overflow: "hidden" }}
           >
-            <ImageCard img={codeSnippet} alt="code snippet" priority={true} />
+            <ContentCard
+              img={codeSnippet}
+              alt="code snippet"
+              priority={true}
+              imageAvail
+            />
           </motion.div>
         </InnerContent>
       </PageContainer>

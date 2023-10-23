@@ -26,8 +26,8 @@ const linkedArr = [
   },
   {
     id: 4,
-    path: "/articles",
-    pathname: "articles",
+    path: "/blog/articles",
+    pathname: "blog",
   },
 ];
 
@@ -52,7 +52,6 @@ const Header = ({
       },
     }),
   };
-
   const child: Variants = {
     visible: {
       opacity: 1,
@@ -260,6 +259,8 @@ export default Header;
 const HeaderContainer = styled.header`
   padding: 1.8rem 8.4rem;
   display: flex;
+  position: sticky;
+  top: 0;
   align-items: center;
   font-family: monospace;
   background-color: ${({ theme }) => theme.colors.primaryColor};

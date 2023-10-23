@@ -3,7 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 import PageContainer from "../_molecules/PageContainer";
 import Letter from "@/app/components/Common/AnimatedLetter";
-import ImageCard from "../_molecules/ImageCard";
+import ContentCard from "../_molecules/ContentCard";
 import { projectDetails } from "./_molecules/projectDetails";
 import CardDetails from "./CardDetails";
 import { Variants, motion } from "framer-motion";
@@ -51,10 +51,11 @@ const Projects = () => {
           {projectDetails.map((project) => {
             return (
               <motion.div key={project.id} variants={child}>
-                <ImageCard
+                <ContentCard
                   img={project.image}
                   alt={`${project.name} image`}
                   fullWidth
+                  imageAvail
                   fixedHeight
                   ExtraComp={
                     <CardDetails
