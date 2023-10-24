@@ -164,8 +164,13 @@ const Article = ({ post }: any) => {
                     return (
                       <CoverPhoto>
                         <Image
+                          sizes="100vw"
+                          style={{
+                            width: "80%",
+                            height: "auto",
+                          }}
+                          width={500}
                           height={300}
-                          width={300}
                           src={p.imageUrl}
                           alt={p.content}
                         />
@@ -362,6 +367,9 @@ const CoverPhoto = styled.div`
   justify-content: center;
 
   img {
+    /* height: 45rem;
+    width: 45rem; */
+
     @media (max-width: 580px) {
       height: 21rem;
       width: 21rem;
