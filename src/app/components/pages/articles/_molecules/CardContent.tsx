@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { BiSolidTimeFive, BiSolidCalendar } from "react-icons/bi";
 import Category from "./Category";
+import { formatDate } from "@/helper";
 
 interface Iprops {
   createdAt: number;
@@ -11,14 +12,14 @@ interface Iprops {
   tags: { id: number; name: string }[];
 }
 const CardContent = ({ createdAt, title, tags, readTime }: Iprops) => {
-  const dateParse = new Date(createdAt).toDateString().split(" ");
+  const dateParsed = formatDate(createdAt);
   return (
     <ContentContainer>
       <InnerContainer>
         <Metadata>
           <div>
             <BiSolidCalendar />
-            {`${dateParse[1]} ${dateParse[2]} ${dateParse[3]}`}
+            {dateParsed}
           </div>
           <div>
             <BiSolidTimeFive />

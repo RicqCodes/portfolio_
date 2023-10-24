@@ -6,6 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { FiShare2, FiEye } from "react-icons/fi";
+import { formatDate } from "@/helper";
 
 const AceEditor = dynamic(
   async () => {
@@ -28,7 +29,7 @@ const AceEditor = dynamic(
 
 type postData = {
   id: number;
-  createdAt: string;
+  createdAt: number;
   updatedAt: string;
   title: string;
   slug: string;
@@ -42,6 +43,7 @@ interface Iprops {
 }
 
 const Article = ({ post }: any) => {
+  const dateParsed = formatDate(post.createdAt);
   return (
     <PageContainer>
       <InnerContainer>
@@ -50,6 +52,7 @@ const Article = ({ post }: any) => {
             <Heading>
               <h1>{post.title}</h1>
               <SmallAction>
+                <p>{dateParsed}</p>
                 <p>{post.readTime} min read</p>
                 <p>
                   <FiEye />

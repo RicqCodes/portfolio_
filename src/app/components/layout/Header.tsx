@@ -1,8 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Link from "next/link";
-import { AnimatePresence, Variants, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  Variants,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import { usePathname } from "next/navigation";
 import useToggle from "@/hooks/useToggle";
 import ToggleSwitch from "../Common/ToggleSwitch";
@@ -33,6 +39,39 @@ const linkedArr = [
 
 const FramerLink = motion(Link);
 
+const ulContainer: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: (i: number = 1) => ({
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: i * 0,
+    },
+  }),
+};
+const child: Variants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      damping: 12,
+      stiffness: 100,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    y: 80,
+    transition: {
+      type: "spring",
+      damping: 12,
+      stiffness: 100,
+    },
+  },
+};
+
 const Header = ({
   theme,
   themeToggler,
@@ -40,51 +79,37 @@ const Header = ({
   theme: string;
   themeToggler: () => void;
 }) => {
-  const ulContainer: Variants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: (i: number = 1) => ({
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: i * 0,
-      },
-    }),
-  };
-  const child: Variants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 80,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-  };
   const { handleToggle, toggle, buttonToggleRef, toggledElementRef } =
     useToggle({
       eventType: "click",
     });
   const pathname = usePathname();
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     if (toggle) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "visible";
   }, [toggle]);
 
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <HeaderContainer>
+    <HeaderContainer
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+    >
       <NavLinks>
         {linkedArr.map((link) => (
           <FramerLink
@@ -256,11 +281,13 @@ const Header = ({
 
 export default Header;
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled(motion.header)`
   padding: 1.8rem 8.4rem;
   display: flex;
-  /* position: sticky; */
-  /* top: 0; */
+  position: sticky;
+  top: 0;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   align-items: center;
   font-family: monospace;
   background-color: ${({ theme }) => theme.colors.primaryColor};
