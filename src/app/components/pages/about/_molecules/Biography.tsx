@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import ContentCard from "../../_molecules/ContentCard";
 import NumberCountAnimation from "@/app/components/Common/NumberCountAnimation";
 import { motion } from "framer-motion";
+import Prince from "@/images/prince.png";
 
 const Biography = () => {
   return (
@@ -17,7 +18,7 @@ const Biography = () => {
             transition={{ type: "spring", stiffness: 100 }}
           >
             <ContentCard
-              img="https://i.imgur.com/PTYA65R.png"
+              img={Prince}
               alt="A picture of prince nwakanma"
               borderRadius
               priority={true}

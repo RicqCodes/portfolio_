@@ -52,7 +52,6 @@ const ContentCard = ({
               <FramerImage
                 src={img}
                 alt={alt}
-                priority={priority}
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.6 }}
               />
@@ -113,7 +112,16 @@ const CardContainer = styled(motion.div)<{
             max-width: 38rem;
           `}
 
-    border-radius: ${({ $borderRadius }) => ($borderRadius ? "80%" : "1rem")};
+    ${({ $borderRadius }) =>
+      $borderRadius
+        ? css`
+            border-top-left-radius: 30%;
+            border-top-right-radius: 30%;
+            border-bottom-right-radius: 40%;
+          `
+        : css`
+            border-radius: 1rem;
+          `};
     height: 100%;
     width: 100%;
     display: inline-block;
