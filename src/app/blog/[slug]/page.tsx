@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getData(params: string) {
-  let res = await fetch(`http://localhost:8000/api/posts/${params}`, {
+  let res = await fetch(`https://api.ricqcodes.dev/api/posts/${params}`, {
     next: { revalidate: 36000 },
   });
 

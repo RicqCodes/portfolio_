@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 async function getData() {
-  const getAllPosts = await fetch("http://localhost:8000/api/posts");
-  const getAllTags = await fetch("http://localhost:8000/api/tags");
+  const getAllPosts = await fetch("https://api.ricqcodes.dev/api/posts");
+  const getAllTags = await fetch("https://api.ricqcodes.dev/api/tags");
 
   if (!getAllPosts.ok || !getAllTags.ok) {
     throw new Error("Failed to fetch all articles");

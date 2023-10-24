@@ -15,9 +15,8 @@ interface Iprops {
 
 const Articles = ({ tags, allPost, params }: Iprops) => {
   const searchParams = useSearchParams();
-  const tag = searchParams.get("tag");
+  // const tag = searchParams.get("tag");
 
-  console.log(tag);
   return (
     <PageContainer>
       <InnerContainer>
