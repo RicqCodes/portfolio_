@@ -259,8 +259,8 @@ export default Header;
 const HeaderContainer = styled.header`
   padding: 1.8rem 8.4rem;
   display: flex;
-  position: sticky;
-  top: 0;
+  /* position: sticky; */
+  /* top: 0; */
   align-items: center;
   font-family: monospace;
   background-color: ${({ theme }) => theme.colors.primaryColor};
