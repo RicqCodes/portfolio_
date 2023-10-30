@@ -37,6 +37,29 @@ const linkedArr = [
   },
 ];
 
+const socialLinks = [
+  {
+    id: 1,
+    url: "https://t.me/cryptospacee",
+    title: "TE",
+  },
+  {
+    id: 2,
+    url: "https://twitter.com/Dechain_Dev",
+    title: "TW",
+  },
+  {
+    id: 3,
+    url: "https://www.linkedin.com/in/princewill-nwakanma-6a6a99181",
+    title: "LN",
+  },
+  {
+    id: 4,
+    url: "https://github.com/ricqcodes",
+    title: "GH",
+  },
+];
+
 const FramerLink = motion(Link);
 
 const ulContainer: Variants = {
@@ -232,44 +255,17 @@ const Header = ({
             </NavContainer>
             <SocialContact>
               <li data-link>
-                <a
-                  data-link
-                  href="https://twitter.com/Dechain_Dev"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  &quot; TE &quot;
-                </a>
-              </li>
-              <li data-link>
-                <a
-                  data-link
-                  href="https://twitter.com/Dechain_Dev"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  &quot; TW &quot;
-                </a>
-              </li>
-              <li data-link>
-                <a
-                  data-link
-                  href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  &quot; LN &quot;
-                </a>
-              </li>
-              <li data-link>
-                <a
-                  data-link
-                  href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  &quot; GH &quot;
-                </a>
+                {socialLinks.map((link) => (
+                  <a
+                    data-link
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {link.title}
+                  </a>
+                ))}
               </li>
             </SocialContact>
           </Nav>
@@ -289,7 +285,7 @@ const HeaderContainer = styled(motion.header)`
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   align-items: center;
-  font-family: monospace;
+  /* font-family: monospace; */
   background-color: ${({ theme }) => theme.colors.primaryColor};
 
   width: 100%;
@@ -342,7 +338,7 @@ const Logo = styled(motion.div)`
   a {
     font-size: 3.6rem;
     font-weight: 600;
-    font-family: monospace;
+    /* font-family: monospace; */
 
     color: ${({ theme }) => theme.colors.secondaryColor};
   }
@@ -495,7 +491,7 @@ const Ul = styled(motion.ul)`
     a {
       color: ${({ theme }) => theme.colors.secondaryColor};
       font-size: 2rem;
-      font-family: monospace;
+      /* font-family: monospace; */
       text-transform: capitalize;
     }
   }
