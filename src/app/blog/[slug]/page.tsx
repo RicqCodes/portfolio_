@@ -17,7 +17,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = params.id;
+  const id = params.id.split("/")[2];
 
   // fetch data
   const result = (await getData(id)) as ResultType;
