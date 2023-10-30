@@ -3,7 +3,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { Fragment } from "react";
 
 type Props = {
-  params: { id: string };
+  params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -16,14 +16,8 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
-  const id = params.id.split("/")[2];
-
   // fetch data
-  const result = (await getData(id)) as ResultType;
-
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+  const result = (await getData(params.slug)) as ResultType;
 
   return {
     title: result.title,
@@ -31,10 +25,6 @@ export async function generateMetadata(
     keywords: Object.values(result.tags).join(","),
     authors: [{ name: "Ricqcodes", url: "https://github.com/ricqcodes" }],
     publisher: "Ricqcodes",
-
-    openGraph: {
-      images: ["/some-specific-page-image.jpg", ...previousImages],
-    },
   };
 }
 
