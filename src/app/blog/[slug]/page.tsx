@@ -1,14 +1,42 @@
 import Article from "@/app/components/pages/articles/article";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 import { Fragment } from "react";
 
-export const metadata: Metadata = {
-  title: "Personal Blog",
-  description:
-    "A personal blog for a full-stack developer portfolio built with Next.js, Ts and styled-component",
-  keywords:
-    "web development, web design, blog, technical writer, react, javascript, nextjs, typescript, solidity, node.js, html, css, styled-components",
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
+
+interface ResultType extends Response {
+  title: string;
+  contentBlocks: any[];
+  tags: { name: string }[];
+}
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.id;
+
+  // fetch data
+  const result = (await getData(id)) as ResultType;
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: result.title,
+    description: result.contentBlocks[1].content,
+    keywords: Object.values(result.tags).join(","),
+    authors: [{ name: "Ricqcodes", url: "https://github.com/ricqcodes" }],
+    publisher: "Ricqcodes",
+
+    openGraph: {
+      images: ["/some-specific-page-image.jpg", ...previousImages],
+    },
+  };
+}
 
 async function getData(params: string) {
   let res = await fetch(`https://api.ricqcodes.dev/api/posts/${params}`, {
