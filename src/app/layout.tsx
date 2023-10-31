@@ -1,13 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
-
 import StyledComponentsRegistry from "@/lib/registry";
-// import GlobalStyles from "@/styles/global/global.styled";
 import Layout from "./components/layout";
-
-// import ThemeProvider from "@/overides/ThemeProvider";
-// import { theme } from "@/styles/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -18,7 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Prince Nwakanma",
   description:
-    "A full-stack developer portfolio built with Next.js, Ts and styled-component",
+    "A full-stack developer portfolio built with Next.js and Nest.js",
   keywords:
     "web development, web design, react, javascript, nextjs, typescript, solidity, node.js, html, css, styled-components",
 };
@@ -41,7 +36,7 @@ export default function RootLayout({
         content="#171716"
       />
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
