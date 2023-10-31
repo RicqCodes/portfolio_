@@ -151,38 +151,13 @@ const Header = ({
       </Logo>
       <RightContainer>
         <SocialContainer>
-          <li>
-            <a href="https://t.me/" target="_blank" rel="noreferrer noopener">
-              &quot; TG &quot;
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://twitter.com/Dechain_Dev"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; TW &quot;
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; LN &quot;
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/princewill-nwakanma-6a6a99181"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              &quot; GH &quot;
-            </a>
-          </li>
+          {socialLinks.map((link) => (
+            <li key={link.id}>
+              <a href={link.url} target="_blank" rel="noreferrer noopener">
+                {link.title}
+              </a>
+            </li>
+          ))}
         </SocialContainer>
         <ToggleSwitch switchToggle={themeToggler}>
           <ThemeSwitch theme={theme} />
@@ -251,19 +226,18 @@ const Header = ({
               </BasicContact>
             </NavContainer>
             <SocialContact>
-              <li data-link>
-                {socialLinks.map((link) => (
+              {socialLinks.map((link) => (
+                <li key={link.id} data-link>
                   <a
                     data-link
-                    key={link.id}
                     href={link.url}
                     target="_blank"
                     rel="noreferrer noopener"
                   >
                     {link.title}
                   </a>
-                ))}
-              </li>
+                </li>
+              ))}
             </SocialContact>
           </Nav>
         )}
