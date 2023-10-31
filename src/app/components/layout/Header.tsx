@@ -332,6 +332,7 @@ const SocialContainer = styled.ul`
     font-weight: 600;
 
     a {
+      text-decoration: underline;
       color: ${({ theme }) => theme.colors.secondaryColor};
     }
   }

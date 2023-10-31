@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: "https://ricqcodes.dev/blog",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: "https://ricqcodes.dev/about",
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -18,12 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://ricqcodes.dev/projects",
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: "https://ricqcodes.dev/blog",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
       priority: 0.5,
     },
   ];
