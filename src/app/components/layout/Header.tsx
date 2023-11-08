@@ -275,6 +275,7 @@ const NavLinks = styled.ul`
   gap: 2rem;
   transition: all 0.3s ease-in;
   text-transform: capitalize;
+  list-style-type: none;
 
   a {
     &.active {
@@ -326,6 +327,7 @@ const Logo = styled(motion.div)`
 const SocialContainer = styled.ul`
   display: flex;
   gap: 2.4rem;
+  list-style-type: none;
 
   li {
     font-size: 1.6rem;

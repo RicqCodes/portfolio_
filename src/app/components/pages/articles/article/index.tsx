@@ -44,6 +44,13 @@ interface Iprops {
 
 const Article = ({ post }: any) => {
   const dateParsed = formatDate(post.createdAt);
+
+  function replaceBackticks(match: string) {
+    return match.replace(/`([^`]+)`/g, (match: any, code: string) => {
+      return `<code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>`;
+    });
+  }
+
   return (
     <PageContainer>
       <InnerContainer>
@@ -129,37 +136,74 @@ const Article = ({ post }: any) => {
                     );
 
                   case "list":
-                    if (p.list.type === "unordered") {
+                    if (
+                      p.list.type === "unordered" ||
+                      p.list.type === "ordered"
+                    ) {
+                      const Type = p.list.type === "unordered" ? "ul" : "ol";
                       return (
-                        <ul key={index}>
+                        <Type key={index}>
                           {p.list.content.map((content: string, i: number) => {
-                            let replacedContent = content;
+                            // let replacedContent = content.replace(
+                            //   /`([^`]+)`/g,
+                            //   (match: string, code: string) => {
+                            //     return `<code>${code}</code>`;
+                            //   }
+                            // );
 
+                            // replacedContent = replacedContent.replace(
+                            //   /<code>(.*?)<\/code>/g,
+                            //   function (match, group) {
+                            //     return (
+                            //       "<code>" +
+                            //       group
+                            //         .replace(/</g, "&lt;")
+                            //         .replace(/>/g, "&gt;") +
+                            //       "</code>"
+                            //     );
+                            //   }
+                            // );
+
+                            // let replacedContent = content.replace(
+                            //   /`([^`]+)`/g,
+                            //   (match, code) => {
+                            //     return `<code>${code
+                            //       .replace(/</g, "&lt;")
+                            //       .replace(/>/g, "&gt;")}</code>`;
+                            //   }
+                            // );
+
+                            let replacedContent = content.replace(
+                              /(\([^`]+`\s?[^`]+\)|`[^`]+`)/g,
+                              replaceBackticks
+                            );
+
+                            // console.log(replacedContent);
                             // Check if there are links
                             if (p.links && p.links.length > 0) {
                               // Iterate through each link and replace if found in the content
                               p.links.forEach((link: any) => {
+                                const linkPattern = new RegExp(link.text, "g");
                                 replacedContent = replacedContent.replace(
-                                  new RegExp(link.text, "g"),
+                                  linkPattern,
                                   `<a href="${link.url}">${link.text}</a>`
                                 );
                               });
                             }
 
                             return (
-                              <li
-                                key={i}
-                                dangerouslySetInnerHTML={{
-                                  __html: replacedContent,
-                                }}
-                              />
+                              <li key={i}>
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: replacedContent,
+                                  }}
+                                />
+                              </li>
                             );
                           })}
-                        </ul>
+                        </Type>
                       );
                     }
-                    break;
-
                   case "image":
                     return (
                       <CoverPhoto>
@@ -321,7 +365,11 @@ const Body = styled.div`
     a {
       text-decoration: underline;
     }
+  }
 
+  > p,
+  ol,
+  ul {
     code {
       padding: 0.8rem;
       border-radius: 0.5rem;
@@ -337,19 +385,29 @@ const Body = styled.div`
     font-size: 2.8rem;
   }
 
-  > ul {
+  > ul,
+  ol {
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
-    list-style-type: disc;
 
     li {
       font-size: 1.6rem;
+      display: list-item;
+      list-style-position: inside;
 
       a {
         text-decoration: underline;
       }
     }
+  }
+
+  > ul {
+    list-style-type: disc;
+  }
+
+  > ol {
+    list-style-type: decimal;
   }
 
   @media (max-width: 324px) {
