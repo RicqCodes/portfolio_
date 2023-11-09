@@ -10,6 +10,7 @@ import { formatDate } from "@/helper";
 import React from "react";
 import ShareSocial from "@/app/components/Common/Share";
 import useToggle from "@/hooks/useToggle";
+import { formatNumber } from "@/lib/utils";
 
 const AceEditor = dynamic(
   async () => {
@@ -77,7 +78,7 @@ const Article = ({ post }: any) => {
                   <p>{post.readTime} min read</p>
                   <p>
                     <FiEye />
-                    {post.views}
+                    {formatNumber(post.views)}
                   </p>
                   <button ref={buttonToggleRef} onClick={() => handleToggle()}>
                     <FiShare2 />

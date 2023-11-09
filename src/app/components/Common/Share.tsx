@@ -119,9 +119,8 @@ const InnerContainer = styled.div`
   left: 50%;
   border-radius: 8px;
   z-index: 999;
-  /* background: white; */
   background: ${({ theme }) => theme.colors.primaryColor};
-  color: #000;
+  color: ${({ theme }) => theme.colors.secondaryColor};
   transform: translate(-50%, -50%);
   max-width: 80rem;
   width: 100%;
@@ -148,6 +147,8 @@ const IconContainer = styled.div`
   padding-top: 2rem;
   padding-bottom: 1.5rem;
   text-align: left;
+  flex-wrap: wrap;
+  row-gap: 1.2rem;
 
   & button {
     flex: 1 1 auto;
@@ -161,7 +162,7 @@ const CopyContainer = styled.div`
   position: relative;
   padding: 14px;
   border: 1px solid grey;
-  color: #263238;
+  color: ${({ theme }) => theme.colors.secondaryColor};
   cursor: text;
   display: inline-flex;
   font-size: 1.4rem;
@@ -176,7 +177,7 @@ const CopyContainer = styled.div`
   border-radius: 4px;
 `;
 const CopyUrl = styled.div`
-  color: white;
+  color: ${({ theme }) => theme.colors.primaryColor};
   max-width: calc(100% - 55px);
   overflow-x: auto;
   font-size: 1.6rem;
@@ -190,7 +191,12 @@ const CopyIcon = styled.div`
   position: absolute;
   left: 93%;
   color: ${({ theme }) => theme.colors.variantColor};
+  color: #869483;
   font-weight: bold;
+
+  @media (max-width: 520px) {
+    left: 82%;
+  }
 
   & p {
     padding-right: 1.5rem;
