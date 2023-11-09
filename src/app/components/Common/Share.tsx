@@ -3,16 +3,11 @@ import { IndexPropsType } from "@/app/types";
 import React from "react";
 import { useState } from "react";
 import {
-  FacebookIcon,
   FacebookShareButton,
-  TwitterIcon,
   TwitterShareButton,
-  WhatsappIcon,
   WhatsappShareButton,
   TelegramShareButton,
-  TelegramIcon,
   LinkedinShareButton,
-  LinkedinIcon,
 } from "react-share";
 import {
   FaFacebook,
