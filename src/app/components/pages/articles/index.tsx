@@ -26,22 +26,28 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
               <h3>{`${params} tag with (${allPost.length}) articles`}</h3>
             )}
             <SectionBlog>
-              {allPost.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`}>
-                  <ContentCard
-                    fullWidth
-                    ExtraComp={
-                      <CardContent
-                        title={post.title}
-                        description={post?.description}
-                        readTime={post.readTime}
-                        tags={post.tags}
-                        createdAt={post.createdAt}
-                      />
-                    }
-                  />
-                </Link>
-              ))}
+              {allPost
+                .sort((a, b) => {
+                  const createdAtA = new Date(a.createdAt).getTime();
+                  const createdAtB = new Date(b.createdAt).getTime();
+                  return createdAtB - createdAtA;
+                })
+                .map((post) => (
+                  <Link key={post.id} href={`/blog/${post.slug}`}>
+                    <ContentCard
+                      fullWidth
+                      ExtraComp={
+                        <CardContent
+                          title={post.title}
+                          description={post?.description}
+                          readTime={post.readTime}
+                          tags={post.tags}
+                          createdAt={post.createdAt}
+                        />
+                      }
+                    />
+                  </Link>
+                ))}
             </SectionBlog>
           </Section>
           <AsideSection>
