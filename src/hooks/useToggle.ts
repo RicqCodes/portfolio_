@@ -26,12 +26,24 @@ const useToggle = ({ eventType = "click", isToggle }: ToggleParameter) => {
     // Function to handle clicks outside of the toggleRef and toggledElementRef elements
     if (toggledElementRef.current !== null) {
       // If both toggleRef and toggledElementRef exist, check if the target of the click is outside of both elements
+      // console.log(toggledElementRef.current?.contains(e.target as Node));
       if (
         toggleRef.current !== null &&
         !toggleRef.current.contains(e.target as Node) &&
         !toggledElementRef.current.contains(e.target as Node)
       ) {
         // If the target is outside of both elements, set the toggle state to false
+        console.log("this ran");
+        if (!isToggle) {
+          setToggle(false);
+        }
+      } else if (
+        buttonToggleRef.current !== null &&
+        !buttonToggleRef.current.contains(e.target as Node) &&
+        !toggledElementRef.current.contains(e.target as Node)
+      ) {
+        console.log("that ran");
+
         if (!isToggle) {
           setToggle(false);
         }

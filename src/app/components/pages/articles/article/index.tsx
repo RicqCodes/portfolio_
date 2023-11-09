@@ -7,6 +7,9 @@ import Image from "next/image";
 
 import { FiShare2, FiEye } from "react-icons/fi";
 import { formatDate } from "@/helper";
+import React from "react";
+import ShareSocial from "@/app/components/Common/Share";
+import useToggle from "@/hooks/useToggle";
 
 const AceEditor = dynamic(
   async () => {
@@ -45,6 +48,16 @@ interface Iprops {
 const Article = ({ post }: any) => {
   const dateParsed = formatDate(post.createdAt);
 
+  const {
+    handleToggle,
+    toggle,
+    toggledElementRef,
+    toggleRef,
+    buttonToggleRef,
+  } = useToggle({
+    eventType: "click",
+  });
+
   function replaceBackticks(match: string) {
     return match.replace(/`([^`]+)`/g, (match: any, code: string) => {
       return `<code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>`;
@@ -52,209 +65,234 @@ const Article = ({ post }: any) => {
   }
 
   return (
-    <PageContainer>
-      <InnerContainer>
-        <InnerContent>
-          <Section>
-            <Heading>
-              <h1>{post.title}</h1>
-              <SmallAction>
-                <p>{dateParsed}</p>
-                <p>{post.readTime} min read</p>
-                <p>
-                  <FiEye />
-                  {post.views}
-                </p>
-                <p>
-                  <FiShare2 />
-                </p>
-              </SmallAction>
-              <CoverPhoto>
-                <Image
-                  src={post.cover_image}
-                  alt="Picture of the author"
-                  width={500}
-                  height={500}
-                  blurDataURL={post.cover_image}
-                />
-              </CoverPhoto>
-            </Heading>
-            <Body>
-              {post.contentBlocks.map((p: any, index: number) => {
-                switch (p.type) {
-                  case "heading":
-                    const parsedTitle = JSON.parse(p.title);
-                    switch (parsedTitle.type) {
-                      case "p":
-                        return (
-                          <ParagraphHeading key={index}>
-                            {parsedTitle.text}
-                          </ParagraphHeading>
-                        );
-                      case "h1":
-                        return <h1 key={index}>{parsedTitle.text}</h1>;
-                      case "h2":
-                        return <h2 key={index}>{parsedTitle.text}</h2>;
-                      case "h3":
-                        return <h3 key={index}>{parsedTitle.text}</h3>;
-                      case "h4":
-                        return <h4 key={index}>{parsedTitle.text}</h4>;
-                      case "h5":
-                        return <h5 key={index}>{parsedTitle.text}</h5>;
-                      case "h6":
-                        return <h6 key={index}>{parsedTitle.text}</h6>;
-                      default:
-                        // Handle unsupported title types
-                        return "";
-                    }
-                  case "text":
-                    // Replace text wrapped in double backticks with <code> elements
-                    let content = p.content.replace(
-                      /`(.*?)`/g,
-                      (match: any, code: any) => {
-                        return `<code>${code}</code>`;
+    <React.Fragment>
+      <PageContainer>
+        <InnerContainer style={{ filter: `blur(${toggle ? "1rem" : "0rem"})` }}>
+          <InnerContent>
+            <Section>
+              <Heading>
+                <h1>{post.title}</h1>
+                <SmallAction>
+                  <p>{dateParsed}</p>
+                  <p>{post.readTime} min read</p>
+                  <p>
+                    <FiEye />
+                    {post.views}
+                  </p>
+                  <button ref={buttonToggleRef} onClick={() => handleToggle()}>
+                    <FiShare2 />
+                  </button>
+                </SmallAction>
+                <CoverPhoto>
+                  <Image
+                    src={post.cover_image}
+                    alt="Picture of the author"
+                    width={700}
+                    height={500}
+                    blurDataURL={post.cover_image}
+                  />
+                </CoverPhoto>
+              </Heading>
+              <Body>
+                {post.contentBlocks.map((p: any, index: number) => {
+                  switch (p.type) {
+                    case "heading":
+                      const parsedTitle = JSON.parse(p.title);
+                      switch (parsedTitle.type) {
+                        case "p":
+                          return (
+                            <ParagraphHeading key={index}>
+                              {parsedTitle.text}
+                            </ParagraphHeading>
+                          );
+                        case "h1":
+                          return <h1 key={index}>{parsedTitle.text}</h1>;
+                        case "h2":
+                          return <h2 key={index}>{parsedTitle.text}</h2>;
+                        case "h3":
+                          return <h3 key={index}>{parsedTitle.text}</h3>;
+                        case "h4":
+                          return <h4 key={index}>{parsedTitle.text}</h4>;
+                        case "h5":
+                          return <h5 key={index}>{parsedTitle.text}</h5>;
+                        case "h6":
+                          return <h6 key={index}>{parsedTitle.text}</h6>;
+                        default:
+                          // Handle unsupported title types
+                          return "";
                       }
-                    );
-                    // Replace links in text with anchor tags
-                    if (p.links && p.links.length > 0) {
-                      p.links.forEach((link: any) => {
-                        // Use a regular expression to find and replace the link text with an anchor tag
-                        const regex = new RegExp(link.text, "g");
-                        content = content.replace(
-                          regex,
-                          `<a href="${link.url}" target="_blank">${link.text}</a>`
-                        );
-                      });
-                    }
-
-                    // Render the modified text with code formatting and links
-                    return (
-                      <p
-                        key={index}
-                        dangerouslySetInnerHTML={{ __html: content }}
-                      ></p>
-                    );
-
-                  case "list":
-                    if (
-                      p.list.type === "unordered" ||
-                      p.list.type === "ordered"
-                    ) {
-                      const Type = p.list.type === "unordered" ? "ul" : "ol";
-                      return (
-                        <Type key={index}>
-                          {p.list.content.map((content: string, i: number) => {
-                            // let replacedContent = content.replace(
-                            //   /`([^`]+)`/g,
-                            //   (match: string, code: string) => {
-                            //     return `<code>${code}</code>`;
-                            //   }
-                            // );
-
-                            // replacedContent = replacedContent.replace(
-                            //   /<code>(.*?)<\/code>/g,
-                            //   function (match, group) {
-                            //     return (
-                            //       "<code>" +
-                            //       group
-                            //         .replace(/</g, "&lt;")
-                            //         .replace(/>/g, "&gt;") +
-                            //       "</code>"
-                            //     );
-                            //   }
-                            // );
-
-                            // let replacedContent = content.replace(
-                            //   /`([^`]+)`/g,
-                            //   (match, code) => {
-                            //     return `<code>${code
-                            //       .replace(/</g, "&lt;")
-                            //       .replace(/>/g, "&gt;")}</code>`;
-                            //   }
-                            // );
-
-                            let replacedContent = content.replace(
-                              /(\([^`]+`\s?[^`]+\)|`[^`]+`)/g,
-                              replaceBackticks
-                            );
-
-                            // console.log(replacedContent);
-                            // Check if there are links
-                            if (p.links && p.links.length > 0) {
-                              // Iterate through each link and replace if found in the content
-                              p.links.forEach((link: any) => {
-                                const linkPattern = new RegExp(link.text, "g");
-                                replacedContent = replacedContent.replace(
-                                  linkPattern,
-                                  `<a href="${link.url}">${link.text}</a>`
-                                );
-                              });
-                            }
-
-                            return (
-                              <li key={i}>
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: replacedContent,
-                                  }}
-                                />
-                              </li>
-                            );
-                          })}
-                        </Type>
-                      );
-                    }
-                  case "image":
-                    return (
-                      <CoverPhoto>
-                        <Image
-                          sizes="100vw"
-                          style={{
-                            width: "80%",
-                            height: "auto",
-                          }}
-                          width={500}
-                          height={300}
-                          src={p.imageUrl}
-                          alt={p.content}
-                        />
-                      </CoverPhoto>
-                    );
-
-                  case "code":
-                    return (
-                      <AceEditor
-                        key={index}
-                        mode={
-                          p.codeType === "shell" ? "powershell" : p.codeType
+                    case "text":
+                      // Replace text wrapped in double backticks with <code> elements
+                      let content = p.content.replace(
+                        /`(.*?)`/g,
+                        (match: any, code: any) => {
+                          return `<code>${code}</code>`;
                         }
-                        theme="cobalt"
-                        value={p.content}
-                        name={`${p.id}`}
-                        editorProps={{ $blockScrolling: true }}
-                        fontSize={14}
-                        height="28rem"
-                        enableSnippets
-                        showPrintMargin={false}
-                        highlightActiveLine={false}
-                        style={{
-                          width: "100%",
-                          backdropFilter: "blur(20px)",
-                        }}
-                        setOptions={{
-                          readOnly: true,
-                          tabSize: 1,
-                          useWorker: false,
-                        }}
-                      />
-                    );
-                }
-              })}
-            </Body>
-          </Section>
-        </InnerContent>
-      </InnerContainer>
-    </PageContainer>
+                      );
+                      // Replace links in text with anchor tags
+                      if (p.links && p.links.length > 0) {
+                        p.links.forEach((link: any) => {
+                          // Use a regular expression to find and replace the link text with an anchor tag
+                          const regex = new RegExp(link.text, "g");
+                          content = content.replace(
+                            regex,
+                            `<a href="${link.url}" target="_blank">${link.text}</a>`
+                          );
+                        });
+                      }
+
+                      // Render the modified text with code formatting and links
+                      return (
+                        <p
+                          key={index}
+                          dangerouslySetInnerHTML={{ __html: content }}
+                        ></p>
+                      );
+
+                    case "list":
+                      if (
+                        p.list.type === "unordered" ||
+                        p.list.type === "ordered"
+                      ) {
+                        const Type = p.list.type === "unordered" ? "ul" : "ol";
+                        return (
+                          <Type key={index}>
+                            {p.list.content.map(
+                              (content: string, i: number) => {
+                                // let replacedContent = content.replace(
+                                //   /`([^`]+)`/g,
+                                //   (match: string, code: string) => {
+                                //     return `<code>${code}</code>`;
+                                //   }
+                                // );
+
+                                // replacedContent = replacedContent.replace(
+                                //   /<code>(.*?)<\/code>/g,
+                                //   function (match, group) {
+                                //     return (
+                                //       "<code>" +
+                                //       group
+                                //         .replace(/</g, "&lt;")
+                                //         .replace(/>/g, "&gt;") +
+                                //       "</code>"
+                                //     );
+                                //   }
+                                // );
+
+                                // let replacedContent = content.replace(
+                                //   /`([^`]+)`/g,
+                                //   (match, code) => {
+                                //     return `<code>${code
+                                //       .replace(/</g, "&lt;")
+                                //       .replace(/>/g, "&gt;")}</code>`;
+                                //   }
+                                // );
+
+                                let replacedContent = content.replace(
+                                  /(\([^`]+`\s?[^`]+\)|`[^`]+`)/g,
+                                  replaceBackticks
+                                );
+
+                                // console.log(replacedContent);
+                                // Check if there are links
+                                if (p.links && p.links.length > 0) {
+                                  // Iterate through each link and replace if found in the content
+                                  p.links.forEach((link: any) => {
+                                    const linkPattern = new RegExp(
+                                      link.text,
+                                      "g"
+                                    );
+                                    replacedContent = replacedContent.replace(
+                                      linkPattern,
+                                      `<a href="${link.url}">${link.text}</a>`
+                                    );
+                                  });
+                                }
+
+                                return (
+                                  <li key={i}>
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: replacedContent,
+                                      }}
+                                    />
+                                  </li>
+                                );
+                              }
+                            )}
+                          </Type>
+                        );
+                      }
+                    case "image":
+                      return (
+                        <CoverPhoto>
+                          <Image
+                            sizes="100vw"
+                            style={{
+                              width: "80%",
+                              height: "auto",
+                            }}
+                            width={500}
+                            height={300}
+                            src={p.imageUrl}
+                            alt={p.content}
+                          />
+                        </CoverPhoto>
+                      );
+
+                    case "code":
+                      return (
+                        <AceEditor
+                          key={index}
+                          mode={
+                            p.codeType === "shell" ? "powershell" : p.codeType
+                          }
+                          theme="cobalt"
+                          value={p.content}
+                          name={`${p.id}`}
+                          editorProps={{ $blockScrolling: true }}
+                          fontSize={14}
+                          height="28rem"
+                          enableSnippets
+                          showPrintMargin={false}
+                          highlightActiveLine={false}
+                          style={{
+                            width: "100%",
+                            backdropFilter: "blur(20px)",
+                          }}
+                          setOptions={{
+                            readOnly: true,
+                            tabSize: 1,
+                            useWorker: false,
+                          }}
+                        />
+                      );
+                  }
+                })}
+              </Body>
+            </Section>
+          </InnerContent>
+        </InnerContainer>
+      </PageContainer>
+      {toggle && (
+        <div ref={toggledElementRef} onClick={() => handleToggle()}>
+          <ShareSocial
+            socialTypes={[
+              "facebook",
+              "twitter",
+              "whatsapp",
+              "linkedin",
+              "telegram",
+            ]}
+            url={`https://ricqcodes.dev/blog/${post.slug}`}
+            onSocialButtonClicked={(buttonName: string) => {
+              console.log(`${buttonName} clicked`);
+            }}
+            title={`I just read this blog post titled: ${post.title}, i think you should check it out`}
+          />
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
@@ -320,8 +358,15 @@ const Heading = styled.div`
 const SmallAction = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1.8rem;
 
-  > p {
+  > button {
+    background-color: transparent;
+  }
+
+  > p,
+  > button {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -429,8 +474,8 @@ const CoverPhoto = styled.div`
     width: 45rem; */
 
     @media (max-width: 580px) {
-      height: 21rem;
-      width: 21rem;
+      height: 32rem;
+      width: 32rem;
     }
   }
 `;
