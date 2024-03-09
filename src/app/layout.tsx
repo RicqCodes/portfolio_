@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
@@ -50,7 +50,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <Layout>{children}</Layout>
         </StyledComponentsRegistry>
-        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

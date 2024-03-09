@@ -13,6 +13,7 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@vercel/analytics": "^1.0.2",
+    "@vercel/speed-insights": "^1.0.10",
     "ace-builds": "^1.30.0",
     "ace-mode-solidity": "^0.1.1",
     "eslint": "8.48.0",
