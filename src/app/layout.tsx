@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "A full-stack developer portfolio built with Next.js and Nest.js",
     type: "website",
     url: "https://ricqcodes.dev/about",
-    images: ["@/images/prince.png"],
+    images: ["/images/prince.png"],
     siteName: "Prince Nwakanma",
     locale: "en_US",
   },

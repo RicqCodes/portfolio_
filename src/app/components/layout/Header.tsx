@@ -60,6 +60,15 @@ const socialLinks = [
   },
 ];
 
+function isActiveLink(currentPathname: string, linkPath: string) {
+  // Check if exactly matches
+  if (currentPathname === linkPath) return true;
+  // Check if it's a nested path (making sure to account for the root path case)
+  if (linkPath !== "/" && currentPathname.startsWith(`${linkPath}/`))
+    return true;
+  return false;
+}
+
 const FramerLink = motion(Link);
 
 const ulContainer: Variants = {
@@ -138,7 +147,7 @@ const Header = ({
           <FramerLink
             key={link.id}
             href={link.path}
-            className={pathname === link.path ? "active" : ""}
+            className={isActiveLink(pathname, link.path) ? "active" : ""}
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.1 }}
           >
