@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 async function getData() {
   const getAllPosts = await fetch("https://api.ricqcodes.dev/api/posts", {
-    next: { revalidate: 36000 },
+    next: { revalidate: 360 },
   });
   const getAllTags = await fetch("https://api.ricqcodes.dev/api/tags", {
-    next: { revalidate: 36000 },
+    next: { revalidate: 360 },
   });
 
   if (!getAllPosts.ok || !getAllTags.ok) {

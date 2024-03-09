@@ -10,6 +10,7 @@ type Props = {
 interface ResultType extends Response {
   title: string;
   contentBlocks: any[];
+  cover_image: string;
   tags: { name: string }[];
 }
 export async function generateMetadata(
@@ -25,6 +26,15 @@ export async function generateMetadata(
     keywords: Object.values(result.tags).join(","),
     authors: [{ name: "Ricqcodes", url: "https://github.com/ricqcodes" }],
     publisher: "Ricqcodes",
+    openGraph: {
+      title: result.title,
+      description: result.contentBlocks[1].content,
+      type: "article",
+      url: `https://ricqcodes.dev/blog/${params.slug}`,
+      images: [result.cover_image],
+      siteName: "Ricqcodes",
+      locale: "en_US",
+    },
   };
 }
 

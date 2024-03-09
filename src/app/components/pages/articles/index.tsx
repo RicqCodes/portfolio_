@@ -6,6 +6,7 @@ import ContentCard from "../_molecules/ContentCard";
 import CardContent from "./_molecules/CardContent";
 import Category from "./_molecules/Category";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Iprops {
   tags: { id: number; name: string }[];
@@ -14,8 +15,37 @@ interface Iprops {
 }
 
 const Articles = ({ tags, allPost, params }: Iprops) => {
+  const [allPosts, setAllPosts] = useState(allPost);
   const searchParams = useSearchParams();
-  // const tag = searchParams.get("tag");
+  const tag = searchParams.get("tag");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    console.log(tag);
+    const fetchBlogPosts = async () => {
+      const signal = controller.signal;
+
+      try {
+        const response = await fetch(
+          `https://api.ricqcodes.dev/api/posts/byTag/${tag}`,
+          { signal }
+        );
+        const data = await response.json();
+        setAllPosts(data);
+      } catch (error: any) {
+        console.log(error);
+        if (error.name === "AbortError") {
+          // Request was cancelled
+        } else {
+          // Handle other errors
+        }
+      }
+    };
+
+    tag && fetchBlogPosts();
+
+    return () => controller.abort();
+  }, [tag]);
 
   return (
     <PageContainer>
@@ -23,10 +53,10 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
         <InnerContent>
           <Section>
             {params && (
-              <h3>{`${params} tag with (${allPost.length}) articles`}</h3>
+              <h3>{`${params} tag with (${allPosts.length}) articles`}</h3>
             )}
             <SectionBlog>
-              {allPost
+              {allPosts
                 .sort((a, b) => {
                   const createdAtA = new Date(a.createdAt).getTime();
                   const createdAtB = new Date(b.createdAt).getTime();

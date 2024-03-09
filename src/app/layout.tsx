@@ -16,6 +16,16 @@ export const metadata: Metadata = {
     "A full-stack developer portfolio built with Next.js and Nest.js",
   keywords:
     "web development, web design, react, javascript, nextjs, typescript, solidity, node.js, html, css, styled-components",
+  openGraph: {
+    title: "Prince Nwakanma | About me",
+    description:
+      "A full-stack developer portfolio built with Next.js and Nest.js",
+    type: "website",
+    url: "https://ricqcodes.dev/about",
+    images: ["@/images/prince.png"],
+    siteName: "Prince Nwakanma",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({
