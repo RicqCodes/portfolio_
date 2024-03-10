@@ -92,7 +92,7 @@ const Biography = () => {
           </div>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={3} />}</span>+
+              <span>{<NumberCountAnimation value={4} />}</span>+
             </span>
             <h4>years of experience 🔬</h4>
           </div>
