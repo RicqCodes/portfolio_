@@ -39,60 +39,56 @@ const Biography = () => {
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Greetings, I am Prince Nwakanma—an adept FE-oriented full-stack web
-            developer, proficient DApp craftsman, and seasoned UI/UX designer.
-            My commitment resides in sculpting exquisite, utilitarian, and
-            user-centric digital landscapes. Over a span of 3 prolific years,
-            I&apos;ve cultivated an unwavering drive to manifest my
-            clients&apos; aspirations with ingenuity and innovation.
+                I am Prince Nwakanma, a specialized blockchain engineer with expertise 
+                in full-stack web development, decentralized application architecture, 
+                and system design. My technical foundation combines frontend optimization 
+                using React/Next.js with backend infrastructure development. With over 6 years of industry experience, 
+                I&apos;ve consistently delivered high-performance solutions across DeFi protocols, NFT platforms, 
+                and enterprise-grade applications, leveraging advanced TypeScript patterns and smart contract development.
+
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            Beyond the realm of code and design, my journey is a testament to
-            evolution and adaptability. From my initial foray into web
-            development to immersing myself in decentralized applications, each
-            milestone has contributed to my growth. I&apos;ve refined my skills
-            through the artistry of crafting seamless user interfaces and delved
-            into the intricate world of blockchain, merging technology with
-            imagination. This holistic approach enables me to infuse versatility
-            into every project, transforming abstract ideas into tangible
-            digital realms.
+                My technical trajectory encompasses the complete development lifecycle—from systems architecture to deployment optimization. 
+                I&apos;ve engineered custom smart contracts for DEX platforms, implemented ERC-20/ERC-721 token standards, and built cross-chain 
+                infrastructure for production environments. My development methodology emphasizes code quality through comprehensive testing frameworks, 
+                CI/CD implementation, and performance optimization. This systematic approach has enabled me to architect scalable solutions that maintain 
+                exceptional user experiences while meeting strict technical requirements.
+
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
-            In an ever-evolving digital cosmos, my voyage as a creator has been
-            nurtured by relentless curiosity. From conceiving intricate backend
-            systems to shaping the very pixels that captivate users, I&apos;ve
-            embraced the intricate dance between logic and aesthetics. My
-            toolkit includes a pantheon of technologies, from React and Node.js
-            to Solidity, each harnessed to materialize innovative solutions. My
-            commitment goes beyond lines of code; it&apos;s an unwavering
-            promise to weave narratives that resonate and experiences that
-            transcend.
+                My technical stack encompasses React.js, TypeScript, Next.js, Solidity, Ethers.js, Hardhat, and Tailwind CSS for frontend development, 
+                complemented by Node.js, Express, and MongoDB for backend systems. For systems-level programming, I leverage Rust to build high-performance, 
+                memory-safe applications with near-native speed. I&apos;m proficient in Web3 development tools including Truffle, Ganache, and OpenZeppelin, 
+                with experience integrating wallets like MetaMask and WalletConnect. I implement advanced security practices including formal verification techniques 
+                and audit-ready development patterns. My commitment to technical excellence drives me to continuously explore emerging protocols and frameworks 
+                while maintaining a focus on delivering robust, gas-efficient, and secure blockchain solutions.
+
           </motion.p>
         </BiographyContainer>
         <Stats>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={35} />}</span>+
+              <span>{<NumberCountAnimation value={50} />}</span>+
             </span>
             <h4>happy client 😋</h4>
           </div>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={40} />}</span>+
+              <span>{<NumberCountAnimation value={68} />}</span>+
             </span>
             <h4>projects completed 👨‍💻</h4>
           </div>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={4} />}</span>+
+              <span>{<NumberCountAnimation value={6} />}</span>+
             </span>
             <h4>years of experience 🔬</h4>
           </div>

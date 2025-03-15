@@ -1,42 +1,59 @@
 export const experienceData = [
   {
     id: 1,
-    position: "Full-Stack Software Engineer",
-    company: "Freelancer",
+    position: "Senior Fullstack Engineer",
+    company: "Kodiak Finance",
     description:
-      "Work as skilled full-stack software developer, I not only thrive in shaping digital landscapes but also in fostering strong client relationships. With the dual role of architect and artist, I meticulously craft front-end interfaces and robust backend systems. By blending technical prowess with creative flair, I deliver solutions that not only meet but exceed client expectations, ensuring a seamless experience that leaves both clients and end-users satisfied.",
-    period: "Jan 2023 - Present",
+      "Worked as full-stack developer for Kodiak Finance, a premier liquidity hub on Berachain that achieved over $500M in lifetime trading volume in just 2 months. Architected advanced trading systems utilizing custom smart contract infrastructure. Spearheaded development of Panda Factory, an innovative no-code token launcher featuring bonding curve trading mechanisms. Optimized protocol performance through data-driven transaction routing and liquidity management while collaborating with cross-functional teams to enhance platform stability.",
+    period: "September 2024 - Present",
     location: "Remote",
   },
   {
     id: 2,
-    position: "Lead Frontend Developer",
-    company: "Eval360",
+    position: "Senior Fullstack Engineer",
+    company: "Blazeswap",
     description:
-      "Led a team of 8 developers responsible for developing an employee evaluation software that assesses staff knowledge and performance using pre-set assessement questions, writing efficient codes and sophisticated systems",
-    period: "Oct 2022 - January 2023",
-    location: "Lagos, Nigeria",
+      "Designed and implemented Uniswap V2-like smart contract architecture for Xion blockchain's native DEX. Developed sophisticated limit order trading functionality with advanced order book management. Engineered seamless frontend integration through Abstraxion framework implementation while conducting comprehensive protocol security audits and optimizations. Collaborated directly with blockchain core developers to enhance network interaction capabilities.",
+    period: "April 2024 - August 2024",
+    location: "Remote",
   },
   {
     id: 3,
-    position: "Frontend Developer",
-    company: "Dotlaunch Inc",
+    position: "Senior Full-Stack Consultant",
+    company: "Independent",
     description:
-      "In the dynamic realm of DotLaunch, the decentralized multichain launchpad, I was entrusted with curating the frontend experience. As a dedicated frontend developer, my focus revolved around creating intuitive and visually captivating interfaces. This ensured effortless user navigation across diverse blockchain chains. Seamlessly blending design with functionality, I contributed to DotLaunch's mission of transforming project launches on a global scale, delivering innovation at every interaction.",
-    period: "Nov 2021 - Oct 2022",
-    location: "Dubai, UAE",
+      "Deliver end-to-end blockchain and web3 solutions for high-profile clients across DeFi, NFT, and DAO ecosystems. Architect and build custom smart contracts and dApps optimized for security, gas efficiency, and seamless UX. Implement advanced frontend systems utilizing React, TypeScript and ethers.js/web3.js for blockchain integration while establishing technical specifications and development roadmaps for complex distributed applications.",
+    period: "January 2023 - April 2024",
+    location: "Remote",
   },
   {
     id: 4,
-    position: "Junior Frontend Developer",
+    position: "Lead Frontend Developer",
+    company: "Eval360",
+    description:
+      "Led an 8-developer team building enterprise employee evaluation software with advanced assessment capabilities. Established technical architecture and development workflows, increasing team productivity by 35%. Implemented sophisticated data visualization systems for performance analytics while designing and deploying microservice architecture for enhanced system scalability. Mentored junior developers through code reviews and technical training sessions.",
+    period: "October 2022 - January 2023",
+    location: "Lagos, Nigeria",
+  },
+  {
+    id: 5,
+    position: "Senior Frontend Developer",
+    company: "Dotlaunch Inc",
+    description:
+      "Engineered frontend architecture for DotLaunch, a decentralized multichain launchpad serving global blockchain projects. Implemented cross-chain compatibility ensuring seamless user experience across diverse blockchain networks. Developed advanced token sale and vesting interfaces with real-time data integration while creating intuitive dashboards for project monitoring and management. Collaborated with blockchain engineers to optimize smart contract interaction and transaction handling.",
+    period: "November 2021 - October 2022",
+    location: "Dubai, UAE",
+  },
+  {
+    id: 6,
+    position: "Frontend Developer",
     company: "Sibus Solutions",
     description:
-      "During my time as a junior frontend developer at SIBUS Solutions, a distinguished solution software company focused on crafting applications for businesses and enterprises, I played a key role in shaping digital experiences. Collaborating within a dynamic team, I brought concepts to life by meticulously crafting engaging user interfaces that seamlessly blended technology with user needs. With an unwavering dedication to innovation and precision, I contributed to SIBUS Solutions' mission of delivering impactful solutions that empowered businesses and enterprises to thrive within the digital landscape.",
-    period: "Mar 2020, Oct 2021",
+      "Contributed to enterprise-grade application development for Fortune 500 clients. Built responsive and accessible user interfaces utilizing modern JavaScript frameworks. Implemented comprehensive UI testing strategies ensuring cross-browser compatibility while participating in agile development cycles with continuous integration and deployment. Collaborated with backend developers to create seamless API integration solutions for business-critical applications.",
+    period: "March 2020 - October 2021",
     location: "Lagos, Nigeria",
   },
 ];
-
 export const educationData = [
   {
     id: 1,

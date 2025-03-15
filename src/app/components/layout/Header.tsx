@@ -30,11 +30,11 @@ const linkedArr = [
     path: "/projects",
     pathname: "projects",
   },
-  {
-    id: 4,
-    path: "/blog",
-    pathname: "blog",
-  },
+  // {
+  //   id: 4,
+  //   path: "/blog",
+  //   pathname: "blog",
+  // },
 ];
 
 const socialLinks = [
