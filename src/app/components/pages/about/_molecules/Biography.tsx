@@ -39,12 +39,11 @@ const Biography = () => {
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-                I am Prince Nwakanma, a specialized blockchain engineer with expertise 
-                in full-stack web development, decentralized application architecture, 
-                and system design. My technical foundation combines frontend optimization 
-                using React/Next.js with backend infrastructure development. With over 6 years of industry experience, 
-                I&apos;ve consistently delivered high-performance solutions across DeFi protocols, NFT platforms, 
-                and enterprise-grade applications, leveraging advanced TypeScript patterns and smart contract development.
+                I’m Prince Nwakanma, a blockchain engineer who enjoys building reliable, high-performance products from the ground up. 
+                My work sits at the intersection of full-stack web development and decentralized systems — combining clean, 
+                well-structured frontends with solid backend and smart contract architecture. With over six years of experience, 
+                I’ve built and shipped production-ready solutions across DeFi, NFTs, and large-scale web applications, always 
+                with a focus on performance, maintainability, and real-world usability.
 
           </motion.p>
           <motion.p
@@ -52,37 +51,35 @@ const Biography = () => {
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1 }}
           >
-                My technical trajectory encompasses the complete development lifecycle—from systems architecture to deployment optimization. 
-                I&apos;ve engineered custom smart contracts for DEX platforms, implemented ERC-20/ERC-721 token standards, and built cross-chain 
-                infrastructure for production environments. My development methodology emphasizes code quality through comprehensive testing frameworks, 
-                CI/CD implementation, and performance optimization. This systematic approach has enabled me to architect scalable solutions that maintain 
-                exceptional user experiences while meeting strict technical requirements.
-
+                I’ve worked across the entire development lifecycle — from designing system architecture to deploying and optimizing 
+                production environments. Over the years, I’ve built custom smart contracts for DEX platforms, implemented token 
+                standards like ERC-20 and ERC-721, and developed cross-chain infrastructure used in live applications. I care deeply 
+                about writing clean, testable code, and I rely on strong testing, CI/CD pipelines, and performance tuning to ensure 
+                the systems I build are both scalable and dependable.
           </motion.p>
           <motion.p
             initial={{ y: "30%", opacity: 0 }}
             animate={{ y: "0", opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
-                My technical stack encompasses React.js, TypeScript, Next.js, Solidity, Ethers.js, Hardhat, and Tailwind CSS for frontend development, 
-                complemented by Node.js, Express, and MongoDB for backend systems. For systems-level programming, I leverage Rust to build high-performance, 
-                memory-safe applications with near-native speed. I&apos;m proficient in Web3 development tools including Truffle, Ganache, and OpenZeppelin, 
-                with experience integrating wallets like MetaMask and WalletConnect. I implement advanced security practices including formal verification techniques 
-                and audit-ready development patterns. My commitment to technical excellence drives me to continuously explore emerging protocols and frameworks 
-                while maintaining a focus on delivering robust, gas-efficient, and secure blockchain solutions.
+                My day-to-day stack includes React, TypeScript, and Next.js on the frontend, with Solidity, Ethers.js, and Hardhat 
+                powering the blockchain layer. On the backend, I work with Node.js and modern APIs, and I also use Rust when performance 
+                and safety really matter. I’m comfortable integrating wallets like MetaMask and WalletConnect, and I follow security-first 
+                practices that make my code audit-ready and production-safe. I’m always exploring new protocols and tools, but my goal 
+                stays the same: building secure, efficient systems that people actually enjoy using.
 
           </motion.p>
         </BiographyContainer>
         <Stats>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={50} />}</span>+
+              <span>{<NumberCountAnimation value={120} />}</span>+
             </span>
             <h4>happy client 😋</h4>
           </div>
           <div>
             <span>
-              <span>{<NumberCountAnimation value={68} />}</span>+
+              <span>{<NumberCountAnimation value={80} />}</span>+
             </span>
             <h4>projects completed 👨‍💻</h4>
           </div>

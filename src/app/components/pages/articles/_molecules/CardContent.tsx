@@ -3,13 +3,13 @@ import { styled } from "styled-components";
 import { BiSolidTimeFive, BiSolidCalendar } from "react-icons/bi";
 import Category from "./Category";
 import { formatDate } from "@/helper";
+import type { Tag } from "@/app/types/blog";
 
 interface Iprops {
-  createdAt: number;
+  createdAt: number | string;
   title: string;
-  description: string;
   readTime: number;
-  tags: { id: number; name: string }[];
+  tags: Tag[];
 }
 const CardContent = ({ createdAt, title, tags, readTime }: Iprops) => {
   const dateParsed = formatDate(createdAt);
@@ -29,7 +29,7 @@ const CardContent = ({ createdAt, title, tags, readTime }: Iprops) => {
         <h2>{title}</h2>
         <Categories>
           {tags?.map((tag) => (
-            <Category key={tag.id} title={tag.name} />
+            <Category key={tag.name} title={tag.name} />
           ))}
         </Categories>
       </InnerContainer>

@@ -37,7 +37,7 @@ const Home: React.FC = () => {
                     engineering.
                   </li>
                   <li>
-                    3 years of experience in building products for clients
+                    6 years of experience in building products for clients
                     across various countries.
                   </li>
                 </Ul>

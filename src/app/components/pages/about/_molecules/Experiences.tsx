@@ -28,6 +28,7 @@ const Experiences = () => {
               desc={exp.description}
               period={exp.period}
               location={exp.location}
+              showDuration
             />
           ))}
         </ExperienceContainer>

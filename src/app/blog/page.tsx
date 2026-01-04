@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Articles from "../components/pages/articles";
 import { Fragment } from "react";
+import { fetchPosts, fetchTags } from "@/lib/blog-api";
+import type { BlogPostSummary, Tag } from "@/app/types/blog";
 
 export const metadata: Metadata = {
   title: "Personal Blog",
@@ -10,32 +12,23 @@ export const metadata: Metadata = {
     "web development, web design, blog, technical writer, react, javascript, nextjs, typescript, solidity, node.js, html, css, nest.js, technical, styled-components",
 };
 
-async function getData() {
-  const getAllPosts = await fetch("https://api.ricqcodes.dev/api/posts", {
-    next: { revalidate: 360 },
-  });
-  const getAllTags = await fetch("https://api.ricqcodes.dev/api/tags", {
-    next: { revalidate: 360 },
-  });
+async function getData(): Promise<{ posts: BlogPostSummary[]; tags: Tag[] }> {
+  const [postsPayload, tags] = await Promise.all([
+    fetchPosts(),
+    fetchTags(),
+  ]);
 
-  if (!getAllPosts.ok || !getAllTags.ok) {
-    throw new Error("Failed to fetch all articles");
-  }
-
-  const results = await Promise.all([getAllPosts.json(), getAllTags.json()]);
-
-  if (!results) {
-    throw new Error("Failed to fetch all articles");
-  }
-
-  return results;
+  return {
+    posts: postsPayload.items ?? [],
+    tags,
+  };
 }
 
 const ArticlePage = async () => {
   const results = await getData();
 
   return (
-    <Fragment>{<Articles allPost={results[0]} tags={results[1]} />}</Fragment>
+    <Fragment>{<Articles allPost={results.posts} tags={results.tags} />}</Fragment>
   );
 };
 

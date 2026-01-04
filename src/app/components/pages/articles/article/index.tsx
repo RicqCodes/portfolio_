@@ -2,15 +2,15 @@
 import { styled } from "styled-components";
 import PageContainer from "../../_molecules/PageContainer";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import Image from "next/image";
+import React from "react";
 
 import { FiShare2, FiEye } from "react-icons/fi";
 import { formatDate } from "@/helper";
-import React from "react";
 import ShareSocial from "@/app/components/Common/Share";
 import useToggle from "@/hooks/useToggle";
 import { formatNumber } from "@/lib/utils";
+import type { BlogPostDetail, ContentBlock } from "@/app/types/blog";
 
 const AceEditor = dynamic(
   async () => {
@@ -24,6 +24,14 @@ const AceEditor = dynamic(
     await import("ace-builds/src-noconflict/mode-python");
     await import("ace-builds/src-noconflict/mode-php");
     await import("ace-builds/src-noconflict/mode-php_laravel_blade");
+    await import("ace-builds/src-noconflict/mode-json");
+    await import("ace-builds/src-noconflict/mode-java");
+    await import("ace-builds/src-noconflict/mode-c_cpp");
+    await import("ace-builds/src-noconflict/mode-csharp");
+    await import("ace-builds/src-noconflict/mode-html");
+    await import("ace-builds/src-noconflict/mode-css");
+    await import("ace-builds/src-noconflict/mode-sh");
+    await import("ace-builds/src-noconflict/mode-text");
     await import("ace-builds/src-noconflict/theme-cobalt");
     await import("ace-builds/src-noconflict/ext-language_tools");
     return ace.default;
@@ -31,39 +39,227 @@ const AceEditor = dynamic(
   { ssr: false }
 );
 
-type postData = {
-  id: number;
-  createdAt: number;
-  updatedAt: string;
-  title: string;
-  slug: string;
-  cover_image: string;
-  views: number;
-  tags: { id: number; name: string }[];
-};
-
 interface Iprops {
-  post: postData;
+  post: BlogPostDetail;
 }
 
-const Article = ({ post }: any) => {
-  const dateParsed = formatDate(post.createdAt);
+const sanitizeInlineCode = (value: string) =>
+  value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-  const {
-    handleToggle,
-    toggle,
-    toggledElementRef,
-    toggleRef,
-    buttonToggleRef,
-  } = useToggle({
-    eventType: "click",
+const replaceBackticks = (match: string) =>
+  match.replace(/`([^`]+)`/g, (_match: string, code: string) => {
+    return `<code>${sanitizeInlineCode(code)}</code>`;
   });
 
-  function replaceBackticks(match: string) {
-    return match.replace(/`([^`]+)`/g, (match: any, code: string) => {
-      return `<code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>`;
+const renderHeading = (block: ContentBlock, key: number) => {
+  const parsedTitle =
+    typeof block.title === "string" ? JSON.parse(block.title) : block.title;
+  switch (parsedTitle?.type) {
+    case "p":
+      return (
+        <ParagraphHeading key={key}>{parsedTitle?.text}</ParagraphHeading>
+      );
+    case "h1":
+      return <h1 key={key}>{parsedTitle?.text}</h1>;
+    case "h2":
+      return <h2 key={key}>{parsedTitle?.text}</h2>;
+    case "h3":
+      return <h3 key={key}>{parsedTitle?.text}</h3>;
+    case "h4":
+      return <h4 key={key}>{parsedTitle?.text}</h4>;
+    case "h5":
+      return <h5 key={key}>{parsedTitle?.text}</h5>;
+    case "h6":
+      return <h6 key={key}>{parsedTitle?.text}</h6>;
+    default:
+      return null;
+  }
+};
+
+const renderText = (block: ContentBlock, key: number) => {
+  let content = block.content
+    ? block.content.replace(/`(.*?)`/g, (_match, code) => {
+        return `<code>${sanitizeInlineCode(code)}</code>`;
+      })
+    : "";
+
+  if (block.links && block.links.length > 0 && content) {
+    block.links.forEach((link) => {
+      const regex = new RegExp(link.text, "g");
+      content = content.replace(
+        regex,
+        `<a href="${link.url}" target="_blank">${link.text}</a>`
+      );
     });
   }
+
+  return (
+    <p key={key} dangerouslySetInnerHTML={{ __html: content || "" }}></p>
+  );
+};
+
+const renderList = (block: ContentBlock, key: number) => {
+  if (!block.list) return null;
+  const Type = block.list.type === "unordered" ? "ul" : "ol";
+
+  return (
+    <Type key={key}>
+      {block.list.content.map((content: string, index: number) => {
+        let replacedContent = content.replace(
+          /(\([^`]+`\s?[^`]+\)|`[^`]+`)/g,
+          replaceBackticks
+        );
+
+        if (block.links && block.links.length > 0) {
+          block.links.forEach((link) => {
+            const linkPattern = new RegExp(link.text, "g");
+            replacedContent = replacedContent.replace(
+              linkPattern,
+              `<a href="${link.url}">${link.text}</a>`
+            );
+          });
+        }
+
+        return (
+          <li key={index}>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: replacedContent,
+              }}
+            />
+          </li>
+        );
+      })}
+    </Type>
+  );
+};
+
+const renderImage = (block: ContentBlock, key: number) => {
+  if (!block.imageUrl) return null;
+  return (
+    <CoverPhoto key={key}>
+      <Image
+        sizes="100vw"
+        style={{
+          width: "80%",
+          height: "auto",
+        }}
+        width={500}
+        height={300}
+        src={block.imageUrl}
+        alt={block.content || "Article image"}
+      />
+    </CoverPhoto>
+  );
+};
+
+const renderDivider = (key: number) => <Divider key={key} />;
+
+const renderCode = (block: ContentBlock, key: number) => {
+  if (!block.content) return null;
+  const modeMap: Record<string, string> = {
+    shell: "sh",
+    bash: "sh",
+    cpp: "c_cpp",
+    csharp: "csharp",
+  };
+  const mode = modeMap[block.codeType || ""] || block.codeType || "text";
+  return (
+    <AceEditor
+      key={key}
+      mode={mode}
+      theme="cobalt"
+      value={block.content}
+      name={`${block.order ?? key}`}
+      editorProps={{ $blockScrolling: true }}
+      fontSize={14}
+      height="28rem"
+      enableSnippets
+      showPrintMargin={false}
+      highlightActiveLine={false}
+      style={{
+        width: "100%",
+        backdropFilter: "blur(20px)",
+      }}
+      setOptions={{
+        readOnly: true,
+        tabSize: 1,
+        useWorker: false,
+      }}
+    />
+  );
+};
+
+const ArticleHeader = ({
+  post,
+  dateParsed,
+  onShare,
+  shareButtonRef,
+}: {
+  post: BlogPostDetail;
+  dateParsed: string;
+  onShare: () => void;
+  shareButtonRef: React.LegacyRef<HTMLButtonElement>;
+}) => (
+  <Heading>
+    <h1>{post.title}</h1>
+    <SmallAction>
+      <p>{dateParsed}</p>
+      <p>{post.readTime} min read</p>
+      <p>
+        <FiEye />
+        {formatNumber(post.views)}
+      </p>
+      <button ref={shareButtonRef} onClick={onShare}>
+        <FiShare2 />
+      </button>
+    </SmallAction>
+    <CoverPhoto>
+      <Image
+        src={post.coverImage}
+        alt="Article cover"
+        width={700}
+        height={500}
+        blurDataURL={post.coverImage}
+      />
+    </CoverPhoto>
+  </Heading>
+);
+
+const ArticleBody = ({ blocks }: { blocks: ContentBlock[] }) => (
+  <Body>
+    {blocks.map((block, index) => {
+      switch (block.type) {
+        case "heading":
+          return renderHeading(block, index);
+        case "text":
+          return renderText(block, index);
+        case "list":
+          return renderList(block, index);
+        case "image":
+          return renderImage(block, index);
+        case "code":
+          return renderCode(block, index);
+        case "divider":
+          return renderDivider(index);
+        default:
+          return null;
+      }
+    })}
+  </Body>
+);
+
+const Article = ({ post }: Iprops) => {
+  const dateParsed = formatDate(post.createdAt);
+  const orderedBlocks = [...(post.contentBlocks ?? [])].sort(
+    (a, b) => (a.order ?? 0) - (b.order ?? 0)
+  );
+
+  const { handleToggle, toggle, toggledElementRef, buttonToggleRef } = useToggle(
+    {
+      eventType: "click",
+    }
+  );
 
   return (
     <React.Fragment>
@@ -71,206 +267,20 @@ const Article = ({ post }: any) => {
         <InnerContainer style={{ filter: `blur(${toggle ? "1rem" : "0rem"})` }}>
           <InnerContent>
             <Section>
-              <Heading>
-                <h1>{post.title}</h1>
-                <SmallAction>
-                  <p>{dateParsed}</p>
-                  <p>{post.readTime} min read</p>
-                  <p>
-                    <FiEye />
-                    {formatNumber(post.views)}
-                  </p>
-                  <button ref={buttonToggleRef} onClick={() => handleToggle()}>
-                    <FiShare2 />
-                  </button>
-                </SmallAction>
-                <CoverPhoto>
-                  <Image
-                    src={post.cover_image}
-                    alt="Picture of the author"
-                    width={700}
-                    height={500}
-                    blurDataURL={post.cover_image}
-                  />
-                </CoverPhoto>
-              </Heading>
-              <Body>
-                {post.contentBlocks.map((p: any, index: number) => {
-                  switch (p.type) {
-                    case "heading":
-                      const parsedTitle = JSON.parse(p.title);
-                      switch (parsedTitle.type) {
-                        case "p":
-                          return (
-                            <ParagraphHeading key={index}>
-                              {parsedTitle.text}
-                            </ParagraphHeading>
-                          );
-                        case "h1":
-                          return <h1 key={index}>{parsedTitle.text}</h1>;
-                        case "h2":
-                          return <h2 key={index}>{parsedTitle.text}</h2>;
-                        case "h3":
-                          return <h3 key={index}>{parsedTitle.text}</h3>;
-                        case "h4":
-                          return <h4 key={index}>{parsedTitle.text}</h4>;
-                        case "h5":
-                          return <h5 key={index}>{parsedTitle.text}</h5>;
-                        case "h6":
-                          return <h6 key={index}>{parsedTitle.text}</h6>;
-                        default:
-                          // Handle unsupported title types
-                          return "";
-                      }
-                    case "text":
-                      // Replace text wrapped in double backticks with <code> elements
-                      let content = p.content.replace(
-                        /`(.*?)`/g,
-                        (match: any, code: any) => {
-                          return `<code>${code}</code>`;
-                        }
-                      );
-                      // Replace links in text with anchor tags
-                      if (p.links && p.links.length > 0) {
-                        p.links.forEach((link: any) => {
-                          // Use a regular expression to find and replace the link text with an anchor tag
-                          const regex = new RegExp(link.text, "g");
-                          content = content.replace(
-                            regex,
-                            `<a href="${link.url}" target="_blank">${link.text}</a>`
-                          );
-                        });
-                      }
-
-                      // Render the modified text with code formatting and links
-                      return (
-                        <p
-                          key={index}
-                          dangerouslySetInnerHTML={{ __html: content }}
-                        ></p>
-                      );
-
-                    case "list":
-                      if (
-                        p.list.type === "unordered" ||
-                        p.list.type === "ordered"
-                      ) {
-                        const Type = p.list.type === "unordered" ? "ul" : "ol";
-                        return (
-                          <Type key={index}>
-                            {p.list.content.map(
-                              (content: string, i: number) => {
-                                // let replacedContent = content.replace(
-                                //   /`([^`]+)`/g,
-                                //   (match: string, code: string) => {
-                                //     return `<code>${code}</code>`;
-                                //   }
-                                // );
-
-                                // replacedContent = replacedContent.replace(
-                                //   /<code>(.*?)<\/code>/g,
-                                //   function (match, group) {
-                                //     return (
-                                //       "<code>" +
-                                //       group
-                                //         .replace(/</g, "&lt;")
-                                //         .replace(/>/g, "&gt;") +
-                                //       "</code>"
-                                //     );
-                                //   }
-                                // );
-
-                                // let replacedContent = content.replace(
-                                //   /`([^`]+)`/g,
-                                //   (match, code) => {
-                                //     return `<code>${code
-                                //       .replace(/</g, "&lt;")
-                                //       .replace(/>/g, "&gt;")}</code>`;
-                                //   }
-                                // );
-
-                                let replacedContent = content.replace(
-                                  /(\([^`]+`\s?[^`]+\)|`[^`]+`)/g,
-                                  replaceBackticks
-                                );
-
-                                // console.log(replacedContent);
-                                // Check if there are links
-                                if (p.links && p.links.length > 0) {
-                                  // Iterate through each link and replace if found in the content
-                                  p.links.forEach((link: any) => {
-                                    const linkPattern = new RegExp(
-                                      link.text,
-                                      "g"
-                                    );
-                                    replacedContent = replacedContent.replace(
-                                      linkPattern,
-                                      `<a href="${link.url}">${link.text}</a>`
-                                    );
-                                  });
-                                }
-
-                                return (
-                                  <li key={i}>
-                                    <span
-                                      dangerouslySetInnerHTML={{
-                                        __html: replacedContent,
-                                      }}
-                                    />
-                                  </li>
-                                );
-                              }
-                            )}
-                          </Type>
-                        );
-                      }
-                    case "image":
-                      return (
-                        <CoverPhoto>
-                          <Image
-                            sizes="100vw"
-                            style={{
-                              width: "80%",
-                              height: "auto",
-                            }}
-                            width={500}
-                            height={300}
-                            src={p.imageUrl}
-                            alt={p.content}
-                          />
-                        </CoverPhoto>
-                      );
-
-                    case "code":
-                      return (
-                        <AceEditor
-                          key={index}
-                          mode={
-                            p.codeType === "shell" ? "powershell" : p.codeType
-                          }
-                          theme="cobalt"
-                          value={p.content}
-                          name={`${p.id}`}
-                          editorProps={{ $blockScrolling: true }}
-                          fontSize={14}
-                          height="28rem"
-                          enableSnippets
-                          showPrintMargin={false}
-                          highlightActiveLine={false}
-                          style={{
-                            width: "100%",
-                            backdropFilter: "blur(20px)",
-                          }}
-                          setOptions={{
-                            readOnly: true,
-                            tabSize: 1,
-                            useWorker: false,
-                          }}
-                        />
-                      );
-                  }
-                })}
-              </Body>
+              <ArticleHeader
+                post={post}
+                dateParsed={dateParsed}
+                onShare={handleToggle}
+                shareButtonRef={buttonToggleRef}
+              />
+              {orderedBlocks.length === 0 ? (
+                <EmptyState>
+                  <h4>Content coming soon.</h4>
+                  <p>This article is still being prepared.</p>
+                </EmptyState>
+              ) : (
+                <ArticleBody blocks={orderedBlocks} />
+              )}
             </Section>
           </InnerContent>
         </InnerContainer>
@@ -465,18 +475,39 @@ const Body = styled.div`
 
 const CoverPhoto = styled.div`
   width: 100%;
-  /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
 
   img {
-    /* height: 45rem;
-    width: 45rem; */
-
     @media (max-width: 580px) {
       height: 32rem;
       width: 32rem;
     }
+  }
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
+  opacity: 0.6;
+`;
+
+const EmptyState = styled.div`
+  padding: 4.8rem 3.2rem;
+  border-radius: 2.4rem;
+  border: 1px dashed ${({ theme }) => theme.colors.tertiaryColor};
+  background-color: ${({ theme }) => theme.colors.primaryColor};
+  text-align: center;
+
+  h4 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 0.8rem;
+    font-size: 1.4rem;
+    opacity: 0.7;
   }
 `;

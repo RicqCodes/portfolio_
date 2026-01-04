@@ -6,18 +6,94 @@ import { BsCalendar2Check } from "react-icons/bs";
 import { motion, useScroll } from "framer-motion";
 import AnimatedCirlce from "@/app/components/Common/AnimatedCirlce";
 
+const MONTHS: Record<string, number> = {
+  January: 0,
+  February: 1,
+  March: 2,
+  April: 3,
+  May: 4,
+  June: 5,
+  July: 6,
+  August: 7,
+  September: 8,
+  October: 9,
+  November: 10,
+  December: 11,
+};
+
+const parseMonthYear = (value: string) => {
+  const [monthName, yearStr] = value.trim().split(" ");
+  const monthIndex = MONTHS[monthName];
+  const year = Number(yearStr);
+
+  if (Number.isNaN(year) || monthIndex === undefined) {
+    return null;
+  }
+
+  return new Date(year, monthIndex, 1);
+};
+
+const formatDuration = (start: Date, end: Date) => {
+  const totalMonths =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth());
+
+  if (totalMonths <= 0) {
+    return "Less than 1 mo";
+  }
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const parts = [];
+
+  if (years) {
+    parts.push(`${years} yr${years === 1 ? "" : "s"}`);
+  }
+
+  if (months) {
+    parts.push(`${months} mo${months === 1 ? "" : "s"}`);
+  }
+
+  return parts.join(" ");
+};
+
+const getDurationText = (period: string) => {
+  if (!period.includes("-")) {
+    return "";
+  }
+
+  const [startPart, endPartRaw] = period.split("-").map((part) => part.trim());
+  const startDate = parseMonthYear(startPart);
+
+  if (!startDate) {
+    return "";
+  }
+
+  const endPart = endPartRaw || "";
+  const endDate =
+    endPart.toLowerCase() === "present" ? new Date() : parseMonthYear(endPart);
+
+  if (!endDate) {
+    return "";
+  }
+
+  return formatDuration(startDate, endDate);
+};
+
 const Experience = ({
   pos,
   comp,
   desc,
   period,
   location,
+  showDuration = false,
 }: {
   pos: string;
   comp: string;
   desc: string;
   period: string;
   location: string;
+  showDuration?: boolean;
 }) => {
   const ref = useRef(null);
 
@@ -25,6 +101,8 @@ const Experience = ({
     target: ref,
     offset: ["start end", "end end"],
   });
+
+  const durationText = showDuration ? getDurationText(period) : "";
 
   return (
     <MainContainer>
@@ -46,6 +124,7 @@ const Experience = ({
           <span>
             <BsCalendar2Check />
             {period}
+            {durationText ? ` (${durationText})` : ""}
           </span>
           <span>|</span>
           <span>

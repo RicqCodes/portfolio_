@@ -4,7 +4,7 @@ export const experienceData = [
     position: "Senior Fullstack Engineer",
     company: "Kodiak Finance",
     description:
-      "Worked as full-stack developer for Kodiak Finance, a premier liquidity hub on Berachain that achieved over $500M in lifetime trading volume in just 2 months. Architected advanced trading systems utilizing custom smart contract infrastructure. Spearheaded development of Panda Factory, an innovative no-code token launcher featuring bonding curve trading mechanisms. Optimized protocol performance through data-driven transaction routing and liquidity management while collaborating with cross-functional teams to enhance platform stability.",
+      "Worked as a full-stack developer at Kodiak Finance, a leading liquidity hub on Berachain with over $5.5B in lifetime trading volume. I helped design and build core trading infrastructure using custom smart contracts, and led the development of Panda Factory — a no-code token launcher powered by bonding-curve mechanics. I also spearheaded Kodiak Perps, which has since surpassed $850M in lifetime trading volume. Along the way, I focused on improving protocol performance through smarter transaction routing and liquidity optimization, while working closely with product and engineering teams to strengthen platform stability and user experience.",
     period: "September 2024 - Present",
     location: "Remote",
   },

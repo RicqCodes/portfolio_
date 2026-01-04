@@ -7,30 +7,30 @@ import CardContent from "./_molecules/CardContent";
 import Category from "./_molecules/Category";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import type { BlogPostSummary, Tag } from "@/app/types/blog";
+import { fetchPostsByTag } from "@/lib/blog-api";
 
 interface Iprops {
-  tags: { id: number; name: string }[];
-  allPost: any[];
+  tags: Tag[];
+  allPost: BlogPostSummary[];
   params?: string;
 }
 
 const Articles = ({ tags, allPost, params }: Iprops) => {
   const [allPosts, setAllPosts] = useState(allPost);
+  const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag");
 
   useEffect(() => {
     const controller = new AbortController();
-    console.log(tag);
     const fetchBlogPosts = async () => {
       const signal = controller.signal;
 
       try {
-        const response = await fetch(
-          `https://api.ricqcodes.dev/api/posts/byTag/${tag}`,
-          { signal }
-        );
-        const data = await response.json();
+        if (!tag) return;
+        setIsLoading(true);
+        const data = await fetchPostsByTag(tag, signal);
         setAllPosts(data);
       } catch (error: any) {
         console.log(error);
@@ -39,13 +39,19 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
         } else {
           // Handle other errors
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    tag && fetchBlogPosts();
+    if (tag) {
+      fetchBlogPosts();
+    } else {
+      setAllPosts(allPost);
+    }
 
     return () => controller.abort();
-  }, [tag]);
+  }, [tag, allPost]);
 
   return (
     <PageContainer>
@@ -56,28 +62,51 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
               <h3>{`${params} tag with (${allPosts.length}) articles`}</h3>
             )}
             <SectionBlog>
-              {allPosts
-                .sort((a, b) => {
-                  const createdAtA = new Date(a.createdAt).getTime();
-                  const createdAtB = new Date(b.createdAt).getTime();
-                  return createdAtB - createdAtA;
-                })
-                .map((post) => (
-                  <Link key={post.id} href={`/blog/${post.slug}`}>
-                    <ContentCard
-                      fullWidth
-                      ExtraComp={
-                        <CardContent
-                          title={post.title}
-                          description={post?.description}
-                          readTime={post.readTime}
-                          tags={post.tags}
-                          createdAt={post.createdAt}
-                        />
-                      }
-                    />
-                  </Link>
-                ))}
+              {isLoading ? (
+                <LoadingSkeleton>
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonCard key={`skeleton-${index}`}>
+                      <SkeletonImage />
+                      <SkeletonLine />
+                      <SkeletonLine $short />
+                      <SkeletonRow>
+                        <SkeletonChip />
+                        <SkeletonChip />
+                        <SkeletonChip />
+                      </SkeletonRow>
+                    </SkeletonCard>
+                  ))}
+                </LoadingSkeleton>
+              ) : allPosts.length === 0 ? (
+                <EmptyState>
+                  <h4>No posts yet.</h4>
+                  <p>Check back soon for new writing.</p>
+                </EmptyState>
+              ) : (
+                allPosts
+                  .sort((a, b) => {
+                    const createdAtA = new Date(a.createdAt).getTime();
+                    const createdAtB = new Date(b.createdAt).getTime();
+                    return createdAtB - createdAtA;
+                  })
+                  .map((post) => (
+                    <Link key={post.id} href={`/blog/${post.slug}`}>
+                      <ContentCard
+                        fullWidth
+                        img={post.coverImage}
+                        alt={post.title}
+                        ExtraComp={
+                          <CardContent
+                            title={post.title}
+                            readTime={post.readTime}
+                            tags={post.tags}
+                            createdAt={post.createdAt}
+                          />
+                        }
+                      />
+                    </Link>
+                  ))
+              )}
             </SectionBlog>
           </Section>
           <AsideSection>
@@ -85,7 +114,7 @@ const Articles = ({ tags, allPost, params }: Iprops) => {
               <h2>Tags</h2>
               <Categories>
                 {tags.map((tag) => (
-                  <Link key={tag.id} href={`/blog?tag=${tag.name}`}>
+                  <Link key={tag.name} href={`/blog?tag=${tag.name}`}>
                     <Category title={tag.name} />
                   </Link>
                 ))}
@@ -147,6 +176,105 @@ const SectionBlog = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6.4rem;
+`;
+
+const LoadingSkeleton = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
+`;
+
+const SkeletonCard = styled.div`
+  border-radius: 3rem;
+  padding: 3.2rem;
+  background-color: ${({ theme }) => theme.colors.tertiaryColor};
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  gap: 1.6rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.6rem;
+    right: 1rem;
+    width: 98%;
+    height: 98%;
+    border: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
+    background-color: ${({ theme }) => theme.colors.primaryColor};
+    border-radius: 2rem;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.55) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+`;
+
+const SkeletonLine = styled.div<{ $short?: boolean }>`
+  height: 1.4rem;
+  width: ${({ $short }) => ($short ? "60%" : "85%")};
+  background-color: ${({ theme }) => theme.colors.primaryColor};
+  border-radius: 999px;
+  opacity: 0.7;
+`;
+
+const SkeletonImage = styled.div`
+  width: 100%;
+  height: 22rem;
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.primaryColor};
+  opacity: 0.6;
+`;
+
+const SkeletonRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+const SkeletonChip = styled.div`
+  height: 2.4rem;
+  width: 6.2rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.primaryColor};
+  opacity: 0.7;
+`;
+
+const EmptyState = styled.div`
+  padding: 4.8rem 3.2rem;
+  border-radius: 2.4rem;
+  border: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
+  background-color: ${({ theme }) => theme.colors.primaryColor};
+  text-align: center;
+
+  h4 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 0.8rem;
+    font-size: 1.4rem;
+    opacity: 0.7;
+  }
 `;
 
 const AsideSection = styled.section`

@@ -124,16 +124,16 @@ const rotateBg = keyframes`
 `;
 
 const pulseAnimation = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1); }
-  70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  0% { box-shadow: 0 0 0 0 currentColor; }
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
 `;
 
 const FooterContainer = styled.footer`
   width: 100%;
   padding: 5rem 2rem 3rem;
-  background: ${({ theme }) => theme.colors.background};
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: ${({ theme }) => theme.colors.primaryColor};
+  border-top: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
 `;
 
 const FooterContent = styled(motion.div)`
@@ -155,7 +155,7 @@ const Logo = styled.div`
   border-radius: 50%;
   background: linear-gradient(135deg, 
     ${({ theme }) => theme.colors.primaryColor}, 
-    ${({ theme }) => theme.colors.accentColor},
+    ${({ theme }) => theme.colors.variantColor},
     ${({ theme }) => theme.colors.primaryColor});
   background-size: 300% 300%;
   animation: ${rotateBg} 8s infinite ease-in-out, ${pulseAnimation} 2s infinite;
@@ -164,7 +164,7 @@ const Logo = styled.div`
   justify-content: center;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.secondaryColor};
   letter-spacing: -0.5px;
   position: relative;
   
@@ -176,7 +176,7 @@ const Logo = styled.div`
     right: -3px;
     bottom: -3px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
     animation: ${pulseAnimation} 2s infinite;
     animation-delay: 1s;
   }
@@ -205,7 +205,7 @@ const LogoSection = styled(motion.div)`
       height: 2px;
       background: linear-gradient(to right, 
         ${({ theme }) => theme.colors.primaryColor}, 
-        ${({ theme }) => theme.colors.accentColor});
+        ${({ theme }) => theme.colors.variantColor});
       transform: scaleX(0);
       transform-origin: bottom right;
       transition: transform 0.5s ease;
@@ -231,7 +231,7 @@ const Divider = styled.div`
   background: linear-gradient(
     to right,
     transparent,
-    rgba(255, 255, 255, 0.1),
+    ${({ theme }) => theme.colors.tertiaryColor},
     transparent
   );
 `;
@@ -254,6 +254,7 @@ const ContactSection = styled(motion.div)`
     letter-spacing: 0.5px;
     text-transform: uppercase;
     text-align: center;
+    color: ${({ theme }) => theme.colors.secondaryColor};
   }
 `;
 
@@ -268,14 +269,14 @@ const SocialLink = styled(motion.a)`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
+  background: ${({ theme }) => theme.colors.tertiaryColor};
   display: flex;
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.colors.textColor};
   font-size: 1.8rem;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid ${({ theme }) => theme.colors.tertiaryColor};
   
   &:hover {
     color: ${({ theme }) => theme.colors.secondaryColor};
@@ -304,7 +305,7 @@ const BottomSection = styled(motion.div)`
 const Copyright = styled.div`
   p {
     font-size: 1.4rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: ${({ theme }) => theme.colors.textColor};
   }
 `;
 
@@ -314,6 +315,7 @@ const Attribution = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: ${({ theme }) => theme.colors.textColor};
     
     @media (max-width: 768px) {
       justify-content: center;
